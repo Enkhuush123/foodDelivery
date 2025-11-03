@@ -13,10 +13,47 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { refresh } from "next/cache";
+import { useState } from "react";
+import { DeleteIcon } from "../_icons/deleteIcon";
 
-export const FoodContain = () => {
+export const FoodContain = (props) => {
+  const { name, ingredients, price, food, token } = props;
+  const [editingFood, setEditingFood] = useState({ ...food });
+  const [image, setImage] = useState(null);
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append("foodName", editingFood.foodName);
+    data.append("price", editingFood.price);
+    data.append("ingredients", editingFood.ingredients);
+    if (image) data.append("image", image);
+
+    const response = await fetch(
+      `http://localhost:9000/foods/${editingFood._id}`,
+      {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
+        body: data,
+      }
+    );
+    if (response.ok) refresh();
+  };
+
+  const handleDelete = async () => {
+    const response = await fetch(
+      `http://localhost:9000/foods/${editingFood._id}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    if (response.ok) refresh();
+  };
+
   return (
-    <div className="p-5">
+    <div>
       <div className="w-[270.75px] h-[241px] rounded-lg shadow-sm  flex flex-col justify-center  gap-2 p-5">
         <div className="w-[238.75px] h-[129px] flex justify-center relative ">
           <img
@@ -24,11 +61,8 @@ export const FoodContain = () => {
             src="/food.png"
           ></img>
           <div className="w-full h-full flex justify-end items-end p-2">
-            {/* <button className="h-11 w-11 bg-white rounded-full flex items-center justify-center">
-              <EditIcon />
-            </button> */}
             <Dialog>
-              <form>
+              <form onSubmit={handleEdit}>
                 <DialogTrigger asChild>
                   <Button
                     variant="outline"
@@ -44,7 +78,17 @@ export const FoodContain = () => {
                   <div className="flex flex-col gap-5">
                     <div className="flex justify-between">
                       <p>Dish name</p>
-                      <input className="w-[288px] h-9 shadow-sm rounded-lg pl-5"></input>
+                      <input
+                        value={editingFood.foodName}
+                        onChange={(e) =>
+                          setEditingFood({
+                            ...editingFood,
+                            foodName: e.target.value,
+                          })
+                        }
+                        placeholder="Type food name..."
+                        className="w-[288px] h-9 shadow-sm rounded-lg pl-5"
+                      ></input>
                     </div>{" "}
                     <div className="flex justify-between">
                       <p>Dish category</p>
@@ -58,7 +102,15 @@ export const FoodContain = () => {
                       <p>Price</p>
                       <input className="w-[288px] h-9 shadow-sm rounded-lg pl-5"></input>
                     </div>
+                    <button
+                      className="w-12 h-10 border border-red-500 flex justify-center items-center"
+                      type="button"
+                      onClick={handleDelete}
+                    >
+                      <DeleteIcon />
+                    </button>
                   </div>
+
                   <DialogFooter>
                     <DialogClose asChild>
                       <Button variant="outline">Cancel</Button>
@@ -71,16 +123,11 @@ export const FoodContain = () => {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <p className="font-normal text-sm text-red-600  ">
-            Brie Crostini Appetizer{" "}
-          </p>
-          <p>$12.99</p>
+          <p className="font-normal text-sm text-red-600  ">{name}</p>
+          <p>{price}</p>
         </div>
         <div>
-          <p className="font-normal text-xs">
-            Fluffy pancakes stacked with fruits, cream, syrup, and powdered
-            sugar.
-          </p>
+          <p className="font-normal text-xs">{ingredients}</p>
         </div>
       </div>
     </div>

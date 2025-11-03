@@ -1,7 +1,27 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { FoodCards } from "../_components/foodCard";
 import { Arrow } from "../_icons/arrows";
 
 export const CardHeader = () => {
+  const [foodOrders, setFoodOrders] = useState([]);
+
+  const option = {
+    method: "GET",
+    headers: { accept: "application/json" },
+  };
+
+  const getData = async () => {
+    const data = await fetch("http://localhost:9000/foodOrder", option);
+    const jsonData = await data.json();
+    setFoodOrders(jsonData);
+    console.log(jsonData, " haha");
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div className="pt-[84px] pl-5">
       <div className="w-[1950px] shadow-sm flex flex-col  ">

@@ -13,11 +13,11 @@ import {
 import { useEffect, useState } from "react";
 import { Plus } from "../_icons/plus";
 import { CategoryCard } from "../_components/categoryCard";
-import { FoodCards } from "../_components/foodCard";
 
 export const Category = () => {
-  const [addCategory, setAddCategory] = useState(false);
+  const [addCategory, setAddCategory] = useState("");
   const [category, setCategory] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
   const options = {
     method: "GET",
     headers: {
@@ -31,20 +31,49 @@ export const Category = () => {
     setCategory(jsonData);
     console.log(jsonData, "here");
   };
+  const handleAddCategory = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch("http://localhost:9000/category", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ categoryName: addCategory }),
+    });
+
+    if (response.ok) {
+      setAddCategory("");
+      getData();
+    }
+    setShowAlert(true);
+
+    setTimeout(() => setShowAlert(false), 3000);
+  };
 
   useEffect(() => {
     getData();
   }, []);
+
   return (
-    <div className="pt-[84px] pl-5">
+    <div className="pt-[84px] pl-5 relative">
+      {showAlert && (
+        <div className="fixed w-full inset-0 flex justify-center  p-5">
+          <div className="w-[368px] h-10 bg-black rounded-lg flex items-center justify-center">
+            <p className="text-white">
+              New Category is being added to the menu
+            </p>
+          </div>
+        </div>
+      )}
       <div className="w-[1950px] shadow-sm flex flex-col p-5 gap-2 rounded-lg ">
         <div>
           <h1 className="font-semibold text-xl">Dishes category</h1>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 ">
           {category.map((category) => {
             return (
-              <CategoryCard key={category.id} name={category.categoryName} />
+              <CategoryCard key={category._id} name={category.categoryName} />
             );
           })}
 
@@ -65,6 +94,8 @@ export const Category = () => {
                 <div className="flex flex-col gap-2">
                   <p>Category name</p>
                   <input
+                    value={addCategory}
+                    onChange={(e) => setAddCategory(e.target.value)}
                     placeholder="Type category name..."
                     className="w-[412px] h-[38px] shadow-sm rounded-lg pl-5"
                   ></input>
@@ -73,7 +104,9 @@ export const Category = () => {
                   <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>
                   </DialogClose>
-                  <Button type="submit">Add category</Button>
+                  <Button onClick={handleAddCategory} type="submit">
+                    Add category
+                  </Button>
                 </DialogFooter>
               </DialogContent>
             </form>
