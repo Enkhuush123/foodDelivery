@@ -4,7 +4,7 @@ import { Product } from "@/app/_feature/product";
 
 export default function foodMenu() {
   return (
-    <div className="flex flex-row shadow-sm ">
+    <div className="flex flex-row shadow-sm bg-neutral-100">
       <Navigation02 />
       <div className="flex flex-col gap-10">
         <Category />

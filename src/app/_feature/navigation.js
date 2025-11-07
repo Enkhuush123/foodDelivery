@@ -9,7 +9,7 @@ export const Navigation = () => {
   const router = useRouter();
 
   return (
-    <div className="w-[205px] h-dvh shadow-sm flex flex-col gap-10 ">
+    <div className="w-[205px] h-dvh shadow-sm flex flex-col gap-10 bg-white ">
       <div className="flex p-5  gap-2 ">
         <div className="flex items-center">
           <WebLogo />

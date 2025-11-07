@@ -4,11 +4,10 @@ import { Navigation } from "../_feature/navigation";
 
 export default function adminPage() {
   return (
-    <div className="flex flex-row ">
+    <div className="flex flex-row bg-neutral-300 ">
       <Navigation />
       <div>
         <CardHeader />
-        <FoodCards />
       </div>
     </div>
   );

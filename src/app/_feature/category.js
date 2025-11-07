@@ -18,19 +18,28 @@ export const Category = () => {
   const [addCategory, setAddCategory] = useState("");
   const [category, setCategory] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [foods, setFoods] = useState([]);
+
   const options = {
     method: "GET",
     headers: {
       accept: "application/json",
     },
   };
-
+  const getfoods = async () => {
+    const data = await fetch(`http://localhost:9000/foods`, options);
+    const jsonData = await data.json();
+    setFoods(jsonData);
+    console.log(jsonData, "ehehe");
+  };
   const getData = async () => {
     const data = await fetch("http://localhost:9000/category", options);
     const jsonData = await data.json();
     setCategory(jsonData);
-    console.log(jsonData, "here");
+    console.log(jsonData, "herehhhaa");
   };
+
   const handleAddCategory = async (e) => {
     e.preventDefault();
 
@@ -47,16 +56,18 @@ export const Category = () => {
       getData();
     }
     setShowAlert(true);
+    setDialogOpen(false);
 
     setTimeout(() => setShowAlert(false), 3000);
   };
 
   useEffect(() => {
     getData();
+    getfoods();
   }, []);
 
   return (
-    <div className="pt-[84px] pl-5 relative">
+    <div className="pt-[84px] pl-5 relative ">
       {showAlert && (
         <div className="fixed w-full inset-0 flex justify-center  p-5">
           <div className="w-[368px] h-10 bg-black rounded-lg flex items-center justify-center">
@@ -66,18 +77,30 @@ export const Category = () => {
           </div>
         </div>
       )}
-      <div className="w-[1950px] shadow-sm flex flex-col p-5 gap-2 rounded-lg ">
+      <div className="w-[1950px] shadow-sm flex flex-col p-5 gap-2 rounded-lg bg-white ">
         <div>
           <h1 className="font-semibold text-xl">Dishes category</h1>
         </div>
         <div className="flex gap-3 ">
+          {foods && (
+            <button className="w-auto h-9 border rounded-full flex items-center gap-5 p-5">
+              <p>All Dishes</p>
+              <p className="w-auto h-5 bg-black text-white rounded-full font-semibold  text-xs flex items-center p-1">
+                {foods.length}
+              </p>
+            </button>
+          )}
           {category.map((category) => {
             return (
-              <CategoryCard key={category._id} name={category.categoryName} />
+              <CategoryCard
+                key={category._id}
+                name={category.categoryName}
+                categoryId={category._id}
+              />
             );
           })}
 
-          <Dialog>
+          <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
             <form>
               <DialogTrigger asChild>
                 <Button
