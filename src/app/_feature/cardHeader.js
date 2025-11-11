@@ -3,10 +3,22 @@
 import { useEffect, useState } from "react";
 import { FoodCards } from "../_components/foodCard";
 import { Arrow } from "../_icons/arrows";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Profile } from "./profile";
 
 export const CardHeader = () => {
   const [foodOrders, setFoodOrders] = useState([]);
-  const [selecteFoods, setSelectedFoods] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [state, setState] = useState("");
 
   const getData = async () => {
     const data = await fetch("http://localhost:9000/foodOrder", {
@@ -21,60 +33,142 @@ export const CardHeader = () => {
   useEffect(() => {
     getData();
   }, []);
-  return (
-    <div className="pt-[84px] pl-5">
-      <div className="rounded-lg w-[1950px]  ">
-        <div className="h-[71px] flex justify-between shadow-sm bg-white p-2  ">
-          <div className="pl-4 flex flex-col items-center">
-            <p className="font-bold text-xl">Orders</p>
-            <p>{foodOrders.length} items</p>
-          </div>
-          <div className="flex pr-4 items-center gap-3">
-            <div className="w-[300px] h-9 rounded-full shadow-sm">
-              <input type="date"></input>
-            </div>
 
-            <button
-              className={`w-[179px] h-9 rounded-full shadow-sm flex items-center justify-center ${
-                selecteFoods > 0
-                  ? "bg-red-500 text-white"
-                  : "bg-gray-200 text-gray-500"
-              }`}
-            >
-              <p>Change delivery state</p>
-            </button>
-          </div>
-        </div>
-        <div className="h-14 flex justify-between shadow-sm items-center p-5 bg-white">
-          <div>
-            <input type="checkbox"></input>
-          </div>
-          <div className="w-14 h-[52px] flex items-center justify-center">
-            <p>№</p>
-          </div>
-          <div className="w-[213px] h-[52px] flex items-center  justify-center ">
-            <p>Customer</p>
-          </div>
-          <div className="w-40 h-[52px] flex items-center justify-center pr-8 ">
-            <p>Food</p>
-          </div>
-          <div className="flex items-center gap-5 w-40 h-[52px] justify-center">
-            <p>Date</p> <Arrow />
-          </div>
-          <div className="w-40 h-[52px] flex items-center justify-center">
-            <p>Total</p>
-          </div>
-          <div className="w-[213px] h-[52px] flex items-center justify-center">
-            <p>Delivery Address</p>
-          </div>
-          <div className="flex items-center gap-5 w-40 h-[52px] justify-center ">
-            <p>Delivery state</p> <Arrow />
-          </div>
-        </div>
+  const toggleSelect = (orderId) => {
+    setSelectedOrder((prev) =>
+      prev.includes(orderId)
+        ? prev.filter((id) => id !== orderId)
+        : [...prev, orderId]
+    );
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedOrder.length === foodOrders.length) {
+      setSelectedOrder([]);
+    } else {
+      setSelectedOrder(foodOrders.map((order) => order._id));
+    }
+  };
+
+  const changeStatus = async (newStatus) => {
+    for (const orderId of selectedOrder) {
+      await fetch(`http://localhost:9000/foodOrder/${orderId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+    }
+    setOpen(false);
+    setSelectedOrder([]);
+    getData();
+  };
+  return (
+    <div>
+      <div className="w-full flex pt-6 pb-6  justify-end">
+        <img
+          src="/enhush.jpg"
+          alt="enhush"
+          className="w-9 h-9 object-cover rounded-full"
+        />
+      </div>
+      <div className="rounded-lg bg-white w-[1950px]">
         <div>
-          {foodOrders.map((order, index) => (
-            <FoodCards key={order._id} updateFoodId={order} index={index + 1} />
-          ))}
+          <div className=" flex justify-between shadow-sm p-5   ">
+            <div className=" flex flex-col items-center">
+              <p className="font-bold text-xl">Orders</p>
+              <p>{foodOrders.length} items</p>
+            </div>
+            <div className="flex pr-4 items-center gap-3">
+              <div className="w-[300px] h-9 rounded-full shadow-sm flex justify-center items-center">
+                <input type="date"></input>
+              </div>
+              <Dialog open={open} onOpenChange={setOpen}>
+                <DialogTrigger asChild>
+                  <button
+                    disabled={selectedOrder.length === 0}
+                    className={` p-5 h-9 rounded-full shadow-sm flex items-center justify-center ${
+                      selectedOrder.length > 0
+                        ? "bg-black text-white"
+                        : "bg-gray-200 text-gray-500 cursor-not-allowed"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 ">
+                      <p>Change delivery state</p>
+                      {selectedOrder.length > 0 && (
+                        <div className="bg-white  p-2 flex items-center justify-center h-5 rounded-full text-black">
+                          {selectedOrder.length > 0 &&
+                            `${selectedOrder.length}`}
+                        </div>
+                      )}
+                    </div>
+                  </button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[400px]">
+                  <DialogHeader>
+                    <DialogTitle>Change Delivery State</DialogTitle>
+                  </DialogHeader>
+                  <div className="flex flex-col gap-3 mt-3">
+                    <div></div>
+                  </div>
+                  <DialogFooter>
+                    <Button variant="outline" onClick={() => setOpen(false)}>
+                      Close
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </div>
+          </div>
+          <div className="h-14 flex justify-between shadow-sm items-center p-5 bg-neutral-300">
+            <div>
+              <input
+                onChange={toggleSelectAll}
+                type="checkbox"
+                checked={
+                  selectedOrder.length > 0 &&
+                  selectedOrder.length === foodOrders.length
+                }
+              ></input>
+            </div>
+            <div className="w-14 h-[52px] flex items-center justify-center">
+              <p>№</p>
+            </div>
+            <div className="w-[213px] h-[52px] flex items-center  justify-center ">
+              <p>Customer</p>
+            </div>
+            <div className="w-40 h-[52px] flex items-center justify-center pr-8 ">
+              <p>Food</p>
+            </div>
+            <div className="flex items-center gap-5 w-40 h-[52px] justify-center">
+              <p>Date</p> <Arrow />
+            </div>
+            <div className="w-40 h-[52px] flex items-center justify-center">
+              <p>Total</p>
+            </div>
+            <div className="w-[213px] h-[52px] flex items-center justify-center">
+              <p>Delivery Address</p>
+            </div>
+            <div className="flex items-center gap-5 w-40 h-[52px] justify-center ">
+              <p>Delivery state</p> <Arrow />
+            </div>
+          </div>
+          <div>
+            {foodOrders.map((order, index) => (
+              <FoodCards
+                key={order._id}
+                foods={order.foodOrderItems}
+                index={index + 1}
+                email={order.user.email}
+                foodNumber={order.foodOrderItems.length}
+                date={order.createdAt}
+                totalPrice={order.totalPrice}
+                address={order.user.address}
+                updateFoodId={order._id}
+                isSelected={selectedOrder.includes(order._id)}
+                toggleSelect={() => toggleSelect(order._id)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

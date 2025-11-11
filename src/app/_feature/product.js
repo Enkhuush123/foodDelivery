@@ -23,16 +23,14 @@ export const Product = () => {
     getData();
   }, []);
   return (
-    <div>
-      <div className="w-[1950px]  rounded-lg flex flex-col gap-10 p-5  ">
-        {category.map((category) => (
-          <AllDishes
-            key={category._id}
-            name={category.categoryName}
-            categoryId={category._id}
-          />
-        ))}
-      </div>
+    <div className="w-[1950px] h-32  rounded-lg flex flex-col gap-10   ">
+      {category.map((category) => (
+        <AllDishes
+          key={category._id}
+          name={category.categoryName}
+          categoryId={category._id}
+        />
+      ))}
     </div>
   );
 };

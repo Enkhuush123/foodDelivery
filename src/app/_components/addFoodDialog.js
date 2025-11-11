@@ -25,6 +25,7 @@ export const AddFoodDialog = ({ categoryId, name }) => {
 
   const [logoUrl, setLogoUrl] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const uploadToCloudinary = async (file) => {
     const formData = new FormData();
@@ -87,9 +88,19 @@ export const AddFoodDialog = ({ categoryId, name }) => {
         image: logoUrl,
       }),
     });
+    if (!res.ok) throw new Error("Failed to add dish");
+
+    setAlertMessage(`Dish "${newFood.foodName}" added successfully!`);
+
+    setTimeout(() => setAlertMessage(""), 3000);
   };
   return (
     <div className="w-[270.75px] h-[241px] rounded-lg border border-dashed border-red-600 flex flex-col justify-center items-center gap-2 p-5 hover:bg-red-100">
+      {alertMessage && (
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 bg-black text-white px-4 py-2 rounded shadow z-50">
+          {alertMessage}
+        </div>
+      )}
       <Dialog>
         <DialogTrigger asChild>
           <Button

@@ -2,6 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { HomeHeader } from "./_feature/homeHeader";
+import { BG } from "./_feature/headerBG";
+import { CategoryContain } from "./_feature/categoryContainer";
 
 export default function Home() {
   const router = useRouter();
@@ -13,8 +16,10 @@ export default function Home() {
     }
   }, []);
   return (
-    <div className="bg-white flex justify-center items-center h-screen w-screen">
-      MAIN PAGE{" "}
+    <div className="bg-neutral-700">
+      <HomeHeader />
+      <BG />
+      <CategoryContain />
     </div>
   );
 }

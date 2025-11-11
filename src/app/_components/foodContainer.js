@@ -1,3 +1,5 @@
+"use client";
+
 import { EditIcon } from "../_icons/edit";
 import * as React from "react";
 
@@ -62,16 +64,11 @@ export const FoodContain = (props) => {
       },
       body: JSON.stringify({
         foodName: editingFood.foodName,
-        category: categoryId,
+        category: editingFood.category,
         ingredients: editingFood.ingredients,
         price: editingFood.price,
       }),
     });
-    if (response.ok) {
-      const updatedFood = await response.json();
-      setFoods((prev) => prev.map((f) => (f._id === foodId ? updatedFood : f)));
-      res.json(updatedFood);
-    }
   };
 
   const handleDelete = async () => {
@@ -101,7 +98,7 @@ export const FoodContain = (props) => {
             src={img || "/food.png"}
             alt={editingFood.image || "food image"}
           />
-          <div className="w-full h-full flex justify-end items-end p-2"></div>
+
           <div className="w-full h-full flex justify-end items-end p-2">
             <Dialog>
               <DialogTrigger asChild>
@@ -112,7 +109,10 @@ export const FoodContain = (props) => {
                   <EditIcon />
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[472px]">
+              <DialogContent
+                className="sm:max-w-[472px] "
+                aria-describedby={undefined}
+              >
                 <DialogHeader>
                   <DialogTitle>Dishes info</DialogTitle>
                 </DialogHeader>
@@ -133,7 +133,12 @@ export const FoodContain = (props) => {
                   </div>
                   <div className="flex justify-between">
                     <p>Dish category</p>
-                    <Select>
+                    <Select
+                      value={editingFood.category}
+                      onValueChange={(value) =>
+                        setEditingFood({ ...editingFood, category: value })
+                      }
+                    >
                       <SelectTrigger className="w-[288px]">
                         <SelectValue placeholder="Select a category" />
                       </SelectTrigger>
@@ -153,6 +158,13 @@ export const FoodContain = (props) => {
                     <textarea
                       className="w-[288px] h-20  rounded-lg p-2 border"
                       placeholder="Type a ingredients"
+                      value={editingFood.ingredients}
+                      onChange={(e) =>
+                        setEditingFood({
+                          ...editingFood,
+                          ingredients: e.target.value,
+                        })
+                      }
                     ></textarea>
                   </div>
                   <div className="flex justify-between">
@@ -160,6 +172,13 @@ export const FoodContain = (props) => {
                     <input
                       className="w-[288px] border h-9 shadow-sm rounded-lg pl-5"
                       placeholder="Type a price"
+                      value={editingFood.price ?? ""}
+                      onChange={(e) =>
+                        setEditingFood({
+                          ...editingFood,
+                          price: e.target.value,
+                        })
+                      }
                     ></input>
                   </div>
                 </div>
@@ -185,7 +204,7 @@ export const FoodContain = (props) => {
           <p>{price}</p>
         </div>
         <div>
-          <p className="font-normal text-xs h-8 wrap-anywhere ">
+          <p className="font-normal text-xs h-8 overflow-auto ">
             {ingredients}
           </p>
         </div>

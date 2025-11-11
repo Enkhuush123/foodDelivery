@@ -50,6 +50,7 @@ export const AllDishes = ({ name, categoryId }) => {
               foodId={food._id}
               img={food.image}
               setFoods={setFoods}
+              categoryId={categoryId}
             />
           );
         })}
