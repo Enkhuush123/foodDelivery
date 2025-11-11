@@ -29,7 +29,7 @@ export const CategoryContain = () => {
         <LeftArrowWhite />
         {getCategory.map((cat) => (
           <CategoryCards key={cat._id} name={cat.categoryName} />
-        ))}{" "}
+        ))}
         <RightArrowWhite />
       </div>
     </div>

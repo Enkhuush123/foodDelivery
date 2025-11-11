@@ -41,6 +41,8 @@ export const FoodCards = (props) => {
         body: JSON.stringify({ status: newState }),
       }
     );
+    if (response.ok) {
+    }
   };
   const formatDate = new Date(date)
     .toLocaleDateString("en-CA")
