@@ -6,7 +6,7 @@ import { ShopIcon } from "../_icons/shopIcon";
 
 export const HomeHeader = () => {
   return (
-    <div className="w-[full] bg-black h-[172px] flex items-center justify-between p-5 ">
+    <div className="w-full max-sm:w-full bg-black h-[172px] flex items-center justify-between p-5 ">
       <div className="flex flex-row items-center  ">
         <WebLogo />
         <div className="flex flex-col ">
@@ -16,8 +16,8 @@ export const HomeHeader = () => {
           <p className="text-white">Swift delivery</p>
         </div>
       </div>
-      <div className="flex gap-2 cursor-pointer ">
-        <div className="w-[251px] h-9 bg-white flex items-center rounded-full justify-center gap-2  ">
+      <div className="flex gap-2  ">
+        <div className="w-[251px] h-9 bg-white flex items-center rounded-full justify-center gap-2 cursor-pointer  ">
           <Navigation />
 
           <span className="text-red-500 font-normal text-xs">
@@ -31,7 +31,7 @@ export const HomeHeader = () => {
         </div>
 
         <div>
-          <button className="bg-white flex items-center w-9 h-9 justify-center rounded-full">
+          <button className="bg-white flex items-center w-9 h-9 justify-center rounded-full ">
             <ShopIcon />
           </button>
         </div>

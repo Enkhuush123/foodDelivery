@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 const UPLOAD_PRESET = "fooood";
 const CLOUD_NAME = "dhms3cyil";
 
-export const AddFoodDialog = ({ categoryId, name, getData }) => {
+export const  AddFoodDialog = ({ categoryId, name, getData }) => {
   const [newFood, setNewFood] = useState({
     foodName: "",
     price: "",
@@ -24,7 +24,7 @@ export const AddFoodDialog = ({ categoryId, name, getData }) => {
   });
 
   const [logoUrl, setLogoUrl] = useState("");
-  const [uploading, setUploading] = useState(false);
+  const [uploading, stUploading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [open, setOpen] = useState(false);
 

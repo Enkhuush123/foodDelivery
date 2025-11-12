@@ -18,7 +18,7 @@ export default function Home() {
     }
   }, []);
   return (
-    <div className="bg-neutral-700 flex flex-col gap-5">
+    <div className="bg-neutral-700 flex flex-col gap-5 w-full max-sm:w-full">
       <div>
         <HomeHeader />
         <BG />
