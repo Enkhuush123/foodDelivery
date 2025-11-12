@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 const UPLOAD_PRESET = "fooood";
 const CLOUD_NAME = "dhms3cyil";
 
-export const AddFoodDialog = ({ categoryId, name }) => {
+export const AddFoodDialog = ({ categoryId, name, getData }) => {
   const [newFood, setNewFood] = useState({
     foodName: "",
     price: "",
@@ -26,6 +26,7 @@ export const AddFoodDialog = ({ categoryId, name }) => {
   const [logoUrl, setLogoUrl] = useState("");
   const [uploading, setUploading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [open, setOpen] = useState(false);
 
   const uploadToCloudinary = async (file) => {
     const formData = new FormData();
@@ -71,9 +72,7 @@ export const AddFoodDialog = ({ categoryId, name }) => {
 
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA0ZGFhM2E5YjFmZDk2ODkxZTBhMyIsImVtYWlsIjoiZW5odXVzaGFxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MjM5MzczMSwiZXhwIjoxNzYyOTk4NTMxfQ.zHiAUeDhoeD9YdM_kQsFC6CAuL7PfI8aXgqLNwasIuA";
-  const addDish = async (e) => {
-    e.preventDefault();
-
+  const addDish = async () => {
     const res = await fetch(`http://localhost:9000/foods`, {
       method: "POST",
       headers: {
@@ -89,6 +88,7 @@ export const AddFoodDialog = ({ categoryId, name }) => {
       }),
     });
     if (!res.ok) throw new Error("Failed to add dish");
+    await getData();
 
     setAlertMessage(`Dish "${newFood.foodName}" added successfully!`);
 
@@ -101,7 +101,7 @@ export const AddFoodDialog = ({ categoryId, name }) => {
           {alertMessage}
         </div>
       )}
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
             variant="outline"
@@ -185,7 +185,14 @@ export const AddFoodDialog = ({ categoryId, name }) => {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button onClick={addDish}>Add dish</Button>
+            <Button
+              onClick={() => {
+                addDish();
+                setOpen(false);
+              }}
+            >
+              Add dish
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

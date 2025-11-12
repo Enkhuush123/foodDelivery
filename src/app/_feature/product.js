@@ -29,6 +29,7 @@ export const Product = () => {
           key={category._id}
           name={category.categoryName}
           categoryId={category._id}
+          getData={getData}
         />
       ))}
     </div>

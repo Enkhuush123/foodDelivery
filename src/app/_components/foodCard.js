@@ -26,7 +26,7 @@ export const FoodCards = (props) => {
     toggleSelect,
   } = props;
   console.log(foods);
-  const [deliveryState, setDeliveryState] = useState("");
+  const [deliveryState, setDeliveryState] = useState(props.status || "");
 
   const handleChangeDelivery = async (newState) => {
     setDeliveryState(newState);
@@ -111,24 +111,24 @@ export const FoodCards = (props) => {
           value={deliveryState}
           onChange={(e) => handleChangeDelivery(e.target.value)}
           className={` rounded-full w-auto  h-10 border ${
-            deliveryState === "Pending"
+            deliveryState === "PENDING"
               ? " border border-red-500 text-black"
               : " "
           }
             ${
-              deliveryState === "Delivered"
+              deliveryState === "DELIVERED"
                 ? " border border-green-500 text-black"
                 : " "
             }
             ${
-              deliveryState === "Canceled"
+              deliveryState === "CANCELLED"
                 ? " border border-neutral-300 text-black"
                 : " "
             }  `}
         >
           <option value="PENDING">Pending</option>
           <option value="DELIVERED">Delivered</option>
-          <option value="CANCELLED">Canceled</option>
+          <option value="CANCELLED">Cancelled</option>
         </select>
       </div>
     </div>

@@ -37,8 +37,18 @@ const option = {
 };
 
 export const FoodContain = (props) => {
-  const { name, ingredients, price, foodId, categoryId, img, setFoods } = props;
+  const {
+    name,
+    ingredients,
+    price,
+    foodId,
+    categoryId,
+    img,
+    setFoods,
+    getFood,
+  } = props;
   const [category, setCategory] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const [editingFood, setEditingFood] = useState({
     foodName: name || "",
@@ -53,9 +63,7 @@ export const FoodContain = (props) => {
     console.log(json, "data");
   };
 
-  const handleEdit = async (e) => {
-    e.preventDefault();
-
+  const handleEdit = async () => {
     const response = await fetch(`http://localhost:9000/foods/${foodId}`, {
       method: "PUT",
       headers: {
@@ -69,6 +77,9 @@ export const FoodContain = (props) => {
         price: editingFood.price,
       }),
     });
+    if (response.ok) {
+      await getFood();
+    }
   };
 
   const handleDelete = async () => {
@@ -100,7 +111,7 @@ export const FoodContain = (props) => {
           />
 
           <div className="w-full h-full flex justify-end items-end p-2">
-            <Dialog>
+            <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
                 <Button
                   variant="outline"
@@ -193,7 +204,14 @@ export const FoodContain = (props) => {
                     <DeleteIcon />
                   </Button>
 
-                  <Button onClick={handleEdit}>Save changes</Button>
+                  <Button
+                    onClick={() => {
+                      handleEdit();
+                      setOpen(false);
+                    }}
+                  >
+                    Save changes
+                  </Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
@@ -201,7 +219,7 @@ export const FoodContain = (props) => {
         </div>
         <div className="flex justify-between items-center">
           <p className="font-normal text-sm text-red-600  ">{name}</p>
-          <p>{price}</p>
+          <p>{price}₮</p>
         </div>
         <div>
           <p className="font-normal text-xs h-8 overflow-auto ">

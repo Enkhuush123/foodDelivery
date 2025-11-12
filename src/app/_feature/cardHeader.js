@@ -49,7 +49,6 @@ export const CardHeader = () => {
       setSelectedOrder(foodOrders.map((order) => order._id));
     }
   };
-
   const changeStatus = async (newStatus) => {
     for (const orderId of selectedOrder) {
       await fetch(`http://localhost:9000/foodOrder/${orderId}`, {
@@ -58,9 +57,17 @@ export const CardHeader = () => {
         body: JSON.stringify({ status: newStatus }),
       });
     }
+
+    setFoodOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        selectedOrder.includes(order._id)
+          ? { ...order, status: newStatus }
+          : order
+      )
+    );
+
     setOpen(false);
     setSelectedOrder([]);
-    getData();
   };
   return (
     <div>
@@ -107,8 +114,25 @@ export const CardHeader = () => {
                   <DialogHeader>
                     <DialogTitle>Change Delivery State</DialogTitle>
                   </DialogHeader>
-                  <div className="flex flex-col gap-3 mt-3">
-                    <div></div>
+                  <div className="flex flex-row p-5 justify-between">
+                    <button
+                      onClick={() => changeStatus("DELIVERED")}
+                      className=" bg-neutral-100 flex justify-center items-center rounded-full w-[94px] h-8"
+                    >
+                      <p>Delivered</p>
+                    </button>
+                    <button
+                      onClick={() => changeStatus("PENDING")}
+                      className=" bg-neutral-100 flex justify-center items-center rounded-full w-[94px] h-8"
+                    >
+                      <p>Pending</p>
+                    </button>
+                    <button
+                      onClick={() => changeStatus("CANCELLED")}
+                      className=" bg-neutral-100 flex justify-center items-center rounded-full w-[94px] h-8"
+                    >
+                      <p>Cancelled</p>
+                    </button>
                   </div>
                   <DialogFooter>
                     <Button variant="outline" onClick={() => setOpen(false)}>
@@ -166,6 +190,7 @@ export const CardHeader = () => {
                 updateFoodId={order._id}
                 isSelected={selectedOrder.includes(order._id)}
                 toggleSelect={() => toggleSelect(order._id)}
+                status={order.status}
               />
             ))}
           </div>

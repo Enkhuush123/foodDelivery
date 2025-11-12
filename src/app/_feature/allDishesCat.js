@@ -39,6 +39,7 @@ export const AllDishes = ({ name, categoryId }) => {
           categoryId={categoryId}
           setFoods={setFoods}
           name={name}
+          getData={getData}
         />
         {foods.map((food, index) => {
           return (
@@ -51,6 +52,7 @@ export const AllDishes = ({ name, categoryId }) => {
               img={food.image}
               setFoods={setFoods}
               categoryId={categoryId}
+              getFood={getData}
             />
           );
         })}

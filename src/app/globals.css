@@ -46,7 +46,18 @@
 body {
   @apply bg-white text-black;
 }
+@keyframes scrollText {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
 
+.animate-scroll {
+  animation: scrollText 15s linear infinite;
+}
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
