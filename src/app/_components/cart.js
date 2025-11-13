@@ -16,6 +16,7 @@ import {
 import { ShopIcon } from "../_icons/shopIcon";
 import { Tab, Tabs } from "./tabs";
 import { ShopIconWhite } from "../_icons/shopIconWhite";
+import { useCart } from "@/context/cartContext";
 
 export const Cart = () => {
   return (

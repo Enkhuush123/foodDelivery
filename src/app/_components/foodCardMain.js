@@ -16,8 +16,15 @@ import Image from "next/image";
 import { NegativeIcon } from "../_icons/negativeIcon";
 import { PlusBlack } from "../_icons/plusBlackIcon";
 import { PlusIconRed } from "../_icons/plusIconRed";
+import { useCart } from "@/context/cartContext";
 
 export const FoodCardMain = ({ ingredients, name, price, img }) => {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+    addToCart({ name, price, img, ingredients });
+  };
   return (
     <div className="w-[397px] h-[342px] bg-white p-5 rounded-lg flex flex-col gap-5  items-center ">
       <Dialog>
@@ -32,7 +39,7 @@ export const FoodCardMain = ({ ingredients, name, price, img }) => {
             />
             <div className="flex items-end justify-end w-full p-5 ">
               <button
-                onClick={(e) => e.stopPropagation()}
+                onClick={handleAddToCart}
                 className="w-11 h-11 bg-white flex justify-center items-center z-50  inset-0 rounded-full  "
               >
                 <PlusIconRed />
