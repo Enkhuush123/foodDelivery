@@ -3,6 +3,7 @@ import { WebLogo } from "../_icons/logo";
 import { Navigation } from "../_icons/navigationIcon";
 import { RightIcon } from "../_icons/rightIcon";
 import { ShopIcon } from "../_icons/shopIcon";
+import { Cart } from "../_components/cart";
 
 export const HomeHeader = () => {
   return (
@@ -31,9 +32,7 @@ export const HomeHeader = () => {
         </div>
 
         <div>
-          <button className="bg-white flex items-center w-9 h-9 justify-center rounded-full ">
-            <ShopIcon />
-          </button>
+          <Cart />
         </div>
         <div>
           <button className="w-9 h-9 bg-white flex items-center justify-center rounded-full">

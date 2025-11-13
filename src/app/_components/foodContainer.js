@@ -61,6 +61,8 @@ export const FoodContain = (props) => {
     const json = await data.json();
     setCategory(json);
     console.log(json, "data");
+
+    await getFood();
   };
 
   const handleEdit = async () => {
@@ -68,7 +70,7 @@ export const FoodContain = (props) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA0ZGFhM2E5YjFmZDk2ODkxZTBhMyIsImVtYWlsIjoiZW5odXVzaGFxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MjM5MzczMSwiZXhwIjoxNzYyOTk4NTMxfQ.zHiAUeDhoeD9YdM_kQsFC6CAuL7PfI8aXgqLNwasIuA`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA0ZGFhM2E5YjFmZDk2ODkxZTBhMyIsImVtYWlsIjoiZW5odXVzaGFxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MzAwNDUwMH0.a9cA_NQ6yT8Yg32h6qjVOMtVxqX0spaYy5484ubW4xU`,
       },
       body: JSON.stringify({
         foodName: editingFood.foodName,
