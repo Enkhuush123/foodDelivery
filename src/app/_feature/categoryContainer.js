@@ -21,7 +21,7 @@ export const CategoryContain = () => {
     getData();
   }, []);
   return (
-    <div className="w-full max-sm:w-3xl h-44 p-5 flex flex-col gap-9 m-auto">
+    <div className="w-[1700px] max-sm:w-full max-sm:m-auto   flex flex-col gap-9 m-auto">
       <div>
         <p className="font-semibold text-3xl text-white">Category</p>
       </div>

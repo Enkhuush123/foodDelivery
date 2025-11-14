@@ -15,7 +15,7 @@ export const DishesMain = () => {
     getData();
   }, []);
   return (
-    <div className="flex flex-col gap-5 w-full max-sm:w-full m-auto">
+    <div className="flex flex-col gap-20 w-[1700px] max-sm:w-full m-auto ">
       {category.map((cat) => (
         <CategoryDishes
           key={cat._id}

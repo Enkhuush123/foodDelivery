@@ -32,9 +32,9 @@ export const HomeHeader = () => {
   };
   return (
     <div className="w-full max-sm:w-full bg-black h-[172px] flex items-center justify-between p-5 ">
-      <div className="flex flex-row items-center  ">
+      <div className="flex flex-row items-center gap-2 ">
         <WebLogo />
-        <div className="flex flex-col ">
+        <div className="flex flex-col  ">
           <p className="text-white flex">
             Nom<span className="text-red-500">Nom</span>
           </p>

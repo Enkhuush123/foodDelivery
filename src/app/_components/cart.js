@@ -36,13 +36,6 @@ export const Cart = () => {
           ></SheetDescription>
           <Tab />
         </SheetHeader>
-
-        <SheetFooter>
-          <Button type="submit">Save changes</Button>
-          <SheetClose asChild>
-            <Button variant="outline">Close</Button>
-          </SheetClose>
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   );
