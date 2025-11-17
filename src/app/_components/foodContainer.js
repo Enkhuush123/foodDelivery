@@ -101,7 +101,7 @@ export const FoodContain = (props) => {
   }, []);
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap ">
       <div className="w-[270.75px] h-[241px] rounded-lg shadow-sm  flex flex-col justify-center  gap-2 p-5">
         <div className="w-[238.75px] h-[129px] flex justify-center relative ">
           <Image
@@ -123,7 +123,7 @@ export const FoodContain = (props) => {
                 </Button>
               </DialogTrigger>
               <DialogContent
-                className="sm:max-w-[472px] "
+                className="sm:max-w-[472px] flex p-5 flex-col gap-5 "
                 aria-describedby={undefined}
               >
                 <DialogHeader>

@@ -67,16 +67,15 @@ export const FoodCards = (props) => {
       </div>
       <div className="w-40 h-[52px] flex items-center justify-center gap-5 ">
         <p>
-          {foodNumber}
-          {foodNumber === 1 ? "food" : "foods"}
+          {foodNumber} {foodNumber === 1 ? "food" : "foods"}
         </p>
         <Popover>
           <PopoverTrigger asChild>
-            <button className="flex items-center gap-5 justify-center bg-white  cursor-pointer ">
+            <button className="flex items-center gap-5 justify-center   cursor-pointer ">
               <DownArrow />
             </button>
           </PopoverTrigger>
-          <PopoverContent className="w-100 flex flex-col gap-5">
+          <PopoverContent className="w-100 flex flex-col gap-5 z-50 inset-0 bg-white">
             {foods.map((item, index) => (
               <div key={index}>
                 {item.map((food) => {

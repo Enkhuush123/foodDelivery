@@ -110,11 +110,11 @@ export const CardHeader = () => {
                     </div>
                   </button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[400px]">
+                <DialogContent className="sm:max-w-[400px] flex p-5 gap-5 flex-col">
                   <DialogHeader>
                     <DialogTitle>Change Delivery State</DialogTitle>
                   </DialogHeader>
-                  <div className="flex flex-row p-5 justify-between">
+                  <div className="flex flex-row p-5 gap-5">
                     <button
                       onClick={() => changeStatus("DELIVERED")}
                       className=" bg-neutral-100 flex justify-center items-center rounded-full w-[94px] h-8"

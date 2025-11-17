@@ -119,7 +119,7 @@ export const Category = () => {
                     <Plus />
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[460px]">
+                <DialogContent className="sm:max-w-[460px] flex p-5 flex-col gap-5">
                   <DialogHeader>
                     <DialogTitle>Add new category</DialogTitle>
                   </DialogHeader>

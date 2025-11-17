@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 const UPLOAD_PRESET = "fooood";
 const CLOUD_NAME = "dhms3cyil";
 
-export const  AddFoodDialog = ({ categoryId, name, getData }) => {
+export const AddFoodDialog = ({ categoryId, name, getData }) => {
   const [newFood, setNewFood] = useState({
     foodName: "",
     price: "",
@@ -111,7 +111,7 @@ export const  AddFoodDialog = ({ categoryId, name, getData }) => {
           </Button>
         </DialogTrigger>
 
-        <DialogContent className="sm:max-w-[460px]">
+        <DialogContent className="sm:max-w-[460px] flex p-5 flex-col gap-5">
           <DialogHeader>
             <DialogTitle>Add new Dish to {name}</DialogTitle>
           </DialogHeader>
