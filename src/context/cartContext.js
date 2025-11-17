@@ -1,10 +1,21 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { useAddress } from "./addressContext";
 const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const { hasAddress } = useAddress();
   const [cartItems, setCartItems] = useState([]);
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cartItems");
+    if (savedCart) {
+      setCartItems(JSON.parse(savedCart));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   const addToCart = (item) => {
     if (!hasAddress) {
       alert("Please set your address before adding items to the cart.");

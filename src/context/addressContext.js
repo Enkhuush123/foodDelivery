@@ -1,14 +1,28 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AddressContext = createContext();
 
 export const AddressProvider = ({ children }) => {
   const [address, setAddress] = useState("");
 
+  useEffect(() => {
+    const saveAddress = localStorage.getItem("DeliveryAddress");
+    if (saveAddress) {
+      setAddress(saveAddress);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (address) {
+      localStorage.setItem("DeliveryAddress", address);
+    }
+  }, [address]);
+
   const saveAddress = (newAddress) => {
     setAddress(newAddress);
+    localStorage.setItem("DeliveryAddress", newAddress);
   };
   const hasAddress = address.trim() !== "";
   return (

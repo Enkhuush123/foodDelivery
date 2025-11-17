@@ -17,9 +17,14 @@ import { NegativeIcon } from "../_icons/negativeIcon";
 import { PlusBlack } from "../_icons/plusBlackIcon";
 import { PlusIconRed } from "../_icons/plusIconRed";
 import { useCart } from "@/context/cartContext";
+import { is } from "date-fns/locale";
+import { CheckIcon } from "lucide-react";
+import { CheckedIcon } from "../_icons/checkedIcon";
 
 export const FoodCardMain = ({ ingredients, name, price, img }) => {
-  const { addToCart } = useCart();
+  const { addToCart, cartItems } = useCart();
+
+  const isAdded = cartItems.some((item) => item.name === name);
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
@@ -40,9 +45,12 @@ export const FoodCardMain = ({ ingredients, name, price, img }) => {
             <div className="flex items-end justify-end w-full p-5 ">
               <button
                 onClick={handleAddToCart}
-                className="w-11 h-11 bg-white flex justify-center items-center z-50  inset-0 rounded-full  "
+                disabled={isAdded}
+                className={`w-11 h-11 bg-white flex justify-center items-center z-50  inset-0 rounded-full ${
+                  isAdded ? "bg-black text-white" : "bg-black"
+                }  `}
               >
-                <PlusIconRed />
+                {isAdded ? <CheckedIcon /> : <PlusIconRed />}
               </button>
             </div>
           </div>

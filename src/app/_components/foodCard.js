@@ -24,6 +24,7 @@ export const FoodCards = (props) => {
     updateFoodId,
     isSelected,
     toggleSelect,
+    getData,
   } = props;
   console.log(foods);
   const [deliveryState, setDeliveryState] = useState(props.status || "");
@@ -42,6 +43,7 @@ export const FoodCards = (props) => {
       }
     );
     if (response.ok) {
+      await getData();
     }
   };
   const formatDate = new Date(date)

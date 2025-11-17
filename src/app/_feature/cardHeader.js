@@ -191,6 +191,7 @@ export const CardHeader = () => {
                 isSelected={selectedOrder.includes(order._id)}
                 toggleSelect={() => toggleSelect(order._id)}
                 status={order.status}
+                getData={getData}
               />
             ))}
           </div>
