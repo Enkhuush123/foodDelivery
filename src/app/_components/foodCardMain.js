@@ -46,7 +46,7 @@ export const FoodCardMain = ({ ingredients, name, price, img }) => {
               <button
                 onClick={handleAddToCart}
                 disabled={isAdded}
-                className={`w-11 h-11 bg-white flex justify-center items-center z-50  inset-0 rounded-full ${
+                className={`w-11 h-11 bg-white flex justify-center items-center z-40  inset-0 rounded-full ${
                   isAdded ? "bg-black text-white" : "bg-black"
                 }  `}
               >

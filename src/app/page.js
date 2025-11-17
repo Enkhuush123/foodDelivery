@@ -12,10 +12,6 @@ export default function Home() {
   const router = useRouter();
   useEffect(() => {
     const token = localStorage.getItem("token");
-
-    if (!token) {
-      router.push("/login");
-    }
   }, []);
   return (
     <div className="bg-neutral-700 flex flex-col gap-20 w-full max-sm:w-full">
