@@ -16,6 +16,7 @@ export default function SigninPage() {
       setEmailError("Invalid email address.");
       return;
     }
+    router.push(`/signup/password?email=${email}`);
 
     try {
       const res = await fetch(`http://localhost:9000/auth/sign-up`, {
@@ -35,13 +36,10 @@ export default function SigninPage() {
         setEmailError("Email already in use.");
         return;
       }
-      if (!res.ok) {
-        alert(data.message);
-        return;
-      }
+      router.push(`/signup/password?email=${email}`);
     } catch (err) {
       console.log(err);
-      alert("Signup failed. Please try again.");
+      setEmailError("Something went wrong.");
     }
   };
   return (
@@ -62,9 +60,14 @@ export default function SigninPage() {
           <div>
             <input
               onChange={(e) => setEmail(e.target.value)}
-              className={`w-[416px] h-9 border rounded-lg p-5 `}
+              className={`w-[416px] h-9 border rounded-lg p-5 ${
+                emailError ? "border-red-500" : ""
+              } `}
               placeholder="Enter your email address"
             ></input>
+            {emailError && (
+              <p className="text-red-500 text-sm mt-1">{emailError}</p>
+            )}
           </div>
         </div>
         <div>

@@ -105,7 +105,10 @@ export const HomeHeader = () => {
               >
                 <p className="text-blue-500"> Log in</p>
               </button>
-              <button className="w-20 h-9 p-1 bg-neutral-200 rounded-full flex justify-center items-center">
+              <button
+                onClick={() => router.push("/signup")}
+                className="w-20 h-9 p-1 bg-neutral-200 rounded-full flex justify-center items-center"
+              >
                 <p className="text-red-500"> Sign up</p>
               </button>
             </div>
