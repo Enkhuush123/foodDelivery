@@ -12,6 +12,9 @@ import {
   DialogFooter,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import * as React from "react";
+import { Calendar } from "@/components/ui/calendar";
+
 import { Profile } from "./profile";
 
 export const CardHeader = () => {

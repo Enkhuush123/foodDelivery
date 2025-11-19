@@ -20,10 +20,11 @@ import { useCart } from "@/context/cartContext";
 import { is } from "date-fns/locale";
 import { CheckIcon } from "lucide-react";
 import { CheckedIcon } from "../_icons/checkedIcon";
+import { useState } from "react";
 
 export const FoodCardMain = ({ ingredients, name, price, img }) => {
   const { addToCart, cartItems } = useCart();
-
+  const [open, setOpen] = useState(false);
   const isAdded = cartItems.some((item) => item.name === name);
 
   const handleAddToCart = (e) => {
@@ -32,7 +33,7 @@ export const FoodCardMain = ({ ingredients, name, price, img }) => {
   };
   return (
     <div className="w-[397px] h-[342px] bg-white p-5 rounded-lg flex flex-col gap-5  items-center ">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <div className="w-[365px] h-[210px] justify-center relative flex  ">
             <Image
@@ -94,8 +95,12 @@ export const FoodCardMain = ({ ingredients, name, price, img }) => {
                     </button>
                   </div>
                 </div>
-                <Button className="w-[377px] h-11 rounded-lg" type="submit">
-                  Save changes
+                <Button
+                  onClick={handleAddToCart}
+                  className="w-[377px] h-11 rounded-lg"
+                  type="submit"
+                >
+                  Add to cart
                 </Button>
               </div>
             </div>
