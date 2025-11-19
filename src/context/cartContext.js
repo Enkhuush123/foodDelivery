@@ -30,13 +30,25 @@ export const CartProvider = ({ children }) => {
       if (existing) {
         return prev.map((cartItem) =>
           cartItem.name === item.name
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            ? {
+                ...cartItem,
+                quantity: cartItem.quantity + item.quantity,
+                totalPrice:
+                  (cartItem.totalPrice + item.totalPrice) * cartItem.price,
+              }
             : cartItem
         );
       } else {
-        return [...prev, { ...item, quantity: 1 }];
+        return [...prev, { ...item, quantity: item.quantity }];
       }
     });
+  };
+  const updateQuantity = (name, newQuantity) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.name === name ? { ...item, quantity: newQuantity } : item
+      )
+    );
   };
 
   const removeFromCart = (name) => {
@@ -48,7 +60,13 @@ export const CartProvider = ({ children }) => {
   };
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, clearCart }}
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        updateQuantity,
+      }}
     >
       {getLocation && (
         <div className="w-full fixed h-full flex justify-center items-center inset-0 z-50 bg-black/50 animate-in ">

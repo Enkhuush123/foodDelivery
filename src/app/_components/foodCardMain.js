@@ -26,10 +26,26 @@ export const FoodCardMain = ({ ingredients, name, price, img }) => {
   const { addToCart, cartItems } = useCart();
   const [open, setOpen] = useState(false);
   const isAdded = cartItems.some((item) => item.name === name);
+  const [quantity, setQuantity] = useState(1);
+
+  const increase = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  const decrease = () => {
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+  };
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    addToCart({ name, price, img, ingredients });
+    addToCart({
+      name,
+      price,
+      img,
+      ingredients,
+      totalPrice: price * quantity,
+      quantity,
+    });
   };
   return (
     <div className="w-[397px] h-[342px] bg-white p-5 rounded-lg flex flex-col gap-5  items-center ">
@@ -82,14 +98,22 @@ export const FoodCardMain = ({ ingredients, name, price, img }) => {
                 <div className="flex justify-between">
                   <div>
                     <p>Total price</p>
-                    <p className="font-semibold text-2xl">{price}₮</p>
+                    <p className="font-semibold text-2xl">
+                      {price * quantity}₮
+                    </p>
                   </div>
                   <div className="flex gap-5 items-center">
-                    <button className="w-11 h-11 bg-white border rounded-full flex items-center justify-center">
+                    <button
+                      onClick={decrease}
+                      className="w-11 h-11 bg-white border rounded-full flex items-center justify-center"
+                    >
                       <NegativeIcon />
                     </button>
-                    <p>1</p>
-                    <button className="w-11 h-11 bg-white border rounded-full flex justify-center items-center">
+                    <p>{quantity}</p>
+                    <button
+                      onClick={increase}
+                      className="w-11 h-11 bg-white border rounded-full flex justify-center items-center"
+                    >
                       {" "}
                       <PlusBlack />
                     </button>

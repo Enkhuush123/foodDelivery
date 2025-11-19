@@ -17,8 +17,22 @@ import { ShopIcon } from "../_icons/shopIcon";
 import { Tab, Tabs } from "./tabs";
 import { ShopIconWhite } from "../_icons/shopIconWhite";
 import { useCart } from "@/context/cartContext";
+import { useEffect, useState } from "react";
 
 export const Cart = () => {
+  const [foodOrders, setFoodOrders] = useState();
+  const getData = async () => {
+    const data = await fetch("http://localhost:9000/foodOrder", {
+      method: "GET",
+      headers: { accept: "application/json" },
+    });
+    const json = await data.json();
+    setFoodOrders(json);
+    console.log(json, "gg");
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -34,7 +48,7 @@ export const Cart = () => {
           <SheetDescription
             className={`flex justify-center p-3`}
           ></SheetDescription>
-          <Tab />
+          <Tab foods={foodOrders} />
         </SheetHeader>
       </SheetContent>
     </Sheet>

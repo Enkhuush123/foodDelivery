@@ -14,8 +14,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useState } from "react";
+import { useAddress } from "@/context/addressContext";
+import { FoodIcon } from "../_icons/foodIcon";
+import { DateIcon } from "../_icons/dateIcon";
+import { useUser } from "@/context/userContext";
 export const Tab = () => {
-  const { cartItems, removeFromCart } = useCart();
+  const { cartItems, removeFromCart, updateQuantity } = useCart();
+  const { address, setAddress } = useAddress();
+  const [orders, setOrders] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+  const { user } = useUser();
+
   const TotalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
@@ -24,6 +34,40 @@ export const Tab = () => {
   const shipping = 1000;
 
   const plus = TotalPrice + shipping;
+
+  const handleCheckout = async () => {
+    if (!address || address.trim() === "") {
+      alert("please enter your address first");
+      return;
+    }
+
+    try {
+      const res = await fetch(`http://localhost:9000/foodOrder/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user: user.id,
+          totalPrice: TotalPrice + shipping,
+          address: address,
+          foodOrderItems: cartItems.map((item) => ({
+            food: item._id,
+            quantity: item.quantity,
+          })),
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("failed to create order");
+      }
+      const newOrder = await res.json();
+      setOrders([newOrder, ...orders]);
+
+      setAddress("");
+    } catch (err) {
+      console.log(err, "ggg");
+    }
+    console.log(orders, "kkk");
+  };
 
   return (
     <Tabs defaultValue="Cart" className=" flex gap-20">
@@ -39,7 +83,7 @@ export const Tab = () => {
               <div className="bg-neutral-200 gap-2 rounded-lg w-full h-[182px] flex flex-col justify-center items-center">
                 <WebLogo />
                 <p className="font-bold text-sm">Your cart is empty</p>
-                <p className="text-center text-xs text-gray-600">
+                <p className="text-center text-xs text-gray-600 max-w-[343px]">
                   Hungry? 🍔 Add some delicious dishes to your cart and satisfy
                   your cravings!
                 </p>
@@ -83,16 +127,31 @@ export const Tab = () => {
 
                     <div className="flex gap-5 items-center justify-between">
                       <div className="flex gap-3 items-center">
-                        <button className="w-11 h-11 bg-white border rounded-full flex items-center justify-center">
+                        <button
+                          onClick={() =>
+                            updateQuantity(
+                              item.name,
+                              item.quantity > 1 ? item.quantity - 1 : 1
+                            )
+                          }
+                          className="w-11 h-11 bg-white border rounded-full flex items-center justify-center"
+                        >
                           <NegativeIcon />
                         </button>
                         <p>{item.quantity}</p>
-                        <button className="w-11 h-11 bg-white border rounded-full flex justify-center items-center">
+                        <button
+                          onClick={() =>
+                            updateQuantity(item.name, item.quantity + 1)
+                          }
+                          className="w-11 h-11 bg-white border rounded-full flex justify-center items-center"
+                        >
                           {" "}
                           <PlusBlack />
                         </button>{" "}
                       </div>
-                      <p className="text-base font-bold">{item.price}₮</p>
+                      <p className="text-base font-bold">
+                        {item.price * item.quantity}₮
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -105,6 +164,8 @@ export const Tab = () => {
               <textarea
                 className="w-[439px] h-[60px] border p-1"
                 placeholder="Please complete your address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               ></textarea>
             </div>
           </div>
@@ -133,7 +194,10 @@ export const Tab = () => {
                   <p className="font-bold text-2xl">-MNT</p>
                 </div>
                 <div>
-                  <button className="w-[429px] h-11 rounded-full bg-red-500 text-white">
+                  <button
+                    onClick={handleCheckout}
+                    className="w-[429px] h-11 rounded-full bg-red-500 text-white"
+                  >
                     Checkout
                   </button>
                 </div>
@@ -165,13 +229,58 @@ export const Tab = () => {
                   <p className="font-bold text-2xl">{plus}MNT</p>
                 </div>
 
-                <button className="w-[429px] h-11 rounded-full bg-red-500 text-white">
+                <button
+                  onClick={handleCheckout}
+                  className="w-[429px] h-11 rounded-full bg-red-500 text-white"
+                >
                   Checkout
                 </button>
               </div>
             </CardFooter>
           </Card>
         )}
+      </TabsContent>
+      <TabsContent className={`flex gap-10 flex-col`} value="Order">
+        <div className="w-[471px] bg-white  rounded-lg p-5 gap- flex flex-col ">
+          <div className="font-semibold text-2xl">
+            {" "}
+            <p>Order history</p>
+          </div>
+          {orders.length === 0 ? (
+            <div className="bg-neutral-200 gap-2 rounded-lg w-full h-[182px] flex flex-col justify-center items-center">
+              <WebLogo />
+              <p className="font-bold text-sm">No Orders Yet?</p>
+              <p className="text-center text-xs text-gray-600 max-w-[343px]">
+                🍕 "You haven't placed any orders yet. Start exploring our menu
+                and satisfy your cravings!"
+              </p>
+            </div>
+          ) : (
+            orders.map((items, index) => (
+              <div key={index} className="flex gap-3 flex-col p-5">
+                <div>
+                  <p>{items.totalPrice}MNT</p>
+                </div>
+                <div className="flex">
+                  {items.foodOrderItems?.map((foodItem, idx) => (
+                    <div key={foodItem.food?._id || idx} className="">
+                      {foodItem.map((food) => (
+                        <div key={food._id}>
+                          <p>{food.foodName}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+
+                  <div className="flex">
+                    <DateIcon />
+                    <p>1</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
       </TabsContent>
     </Tabs>
   );
