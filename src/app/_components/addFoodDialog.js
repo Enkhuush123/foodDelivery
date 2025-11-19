@@ -24,7 +24,7 @@ export const AddFoodDialog = ({ categoryId, name, getData }) => {
   });
 
   const [logoUrl, setLogoUrl] = useState("");
-  const [uploading, stUploading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [open, setOpen] = useState(false);
 
