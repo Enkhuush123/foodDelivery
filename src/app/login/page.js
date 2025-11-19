@@ -4,6 +4,7 @@ import { useState } from "react";
 import { LeftArrow } from "../_icons/leftArrow";
 import { useRouter } from "next/navigation";
 import { set } from "date-fns";
+import { useUser } from "@/context/userContext";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -12,6 +13,7 @@ export default function Home() {
   const [passwordError, setPasswordError] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
+  const { login } = useUser();
 
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const isFromValid = isValidEmail(email) && password.length >= 6;
@@ -49,14 +51,16 @@ export default function Home() {
         setPasswordError("Incorrect password.");
         return;
       }
-      if (!res.ok) {
-        setError(data.message || "Login failed.");
-        return;
+      if (res.ok) {
+        login({
+          email: data.user.email,
+          role: data.user.role,
+          id: data.user.id,
+        });
+        localStorage.setItem("token", data.token);
+        router.push("/");
+        console.log(login);
       }
-
-      localStorage.setItem("token", data.token);
-      router.push("/");
-      router;
     } catch (err) {
       console.log("cant login");
     }

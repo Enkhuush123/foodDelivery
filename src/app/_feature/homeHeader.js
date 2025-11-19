@@ -20,13 +20,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAddress } from "@/context/addressContext";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/context/userContext";
 
 export const HomeHeader = () => {
   const { address, saveAddress } = useAddress();
   const [addressInput, setAddressInput] = useState(address);
-  const [user, setUser] = useState(false);
+  const { user, logout } = useUser();
 
   const router = useRouter();
 
@@ -88,17 +89,10 @@ export const HomeHeader = () => {
         <div>
           <Cart />
         </div>
+
         <div>
-          <button
-            onClick={() => setUser(!user)}
-            className={`w-9 h-9 bg-white flex items-center justify-center rounded-full ${
-              setUser ? "bg-red-500" : "bg-white"
-            } `}
-          >
-            <UserIcon />
-          </button>
-          {user && (
-            <div className="w-[188px] h-[104px] bg-white absolute right-5 rounded-lg top-30 justify-center items-center flex gap-2">
+          {!user ? (
+            <div className="flex gap-2">
               <button
                 onClick={() => router.push("/login")}
                 className="w-20 h-9 p-1 bg-neutral-200 rounded-full flex justify-center items-center cursor-pointer"
@@ -110,6 +104,12 @@ export const HomeHeader = () => {
                 className="w-20 h-9 p-1 bg-neutral-200 rounded-full flex justify-center items-center"
               >
                 <p className="text-red-500"> Sign up</p>
+              </button>
+            </div>
+          ) : (
+            <div>
+              <button>
+                <UserIcon />
               </button>
             </div>
           )}

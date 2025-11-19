@@ -24,7 +24,7 @@ export default function SigninPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
-          password: "defaultPassword123",
+          password: "",
           phoneNumber: "",
           address: "",
           role: "USER",
@@ -34,6 +34,10 @@ export default function SigninPage() {
       const data = await res.json();
       if (res.status === 400) {
         setEmailError("Email already in use.");
+        return;
+      }
+      if (!res.ok) {
+        setError(data.message);
         return;
       }
       router.push(`/signup/password?email=${email}`);
@@ -46,7 +50,10 @@ export default function SigninPage() {
     <div className="flex justify-center items-center h-dvh gap-10">
       <div className="flex gap-5 flex-col">
         <div>
-          <button className="w-9 h-9 border flex justify-center items-center">
+          <button
+            onClick={() => router.push("/")}
+            className="w-9 h-9 border flex justify-center items-center"
+          >
             <LeftArrow />
           </button>
         </div>
