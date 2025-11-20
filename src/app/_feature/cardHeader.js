@@ -21,7 +21,6 @@ export const CardHeader = () => {
   const [foodOrders, setFoodOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState([]);
   const [open, setOpen] = useState(false);
-  const [state, setState] = useState("");
 
   const getData = async () => {
     const data = await fetch("http://localhost:9000/foodOrder", {

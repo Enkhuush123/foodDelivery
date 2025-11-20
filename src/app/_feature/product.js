@@ -17,8 +17,6 @@ export const Product = () => {
     const jsonData = await data.json();
     setCategory(jsonData);
     console.log(jsonData, "hool2");
-
-    await getData();
   };
 
   useEffect(() => {

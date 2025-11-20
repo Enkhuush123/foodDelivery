@@ -3,13 +3,16 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { useAddress } from "./addressContext";
 import { WebLogo } from "@/app/_icons/logo";
 import { WebLogo02 } from "@/app/_icons/webIcon";
+import { useUser } from "./userContext";
 const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const { hasAddress } = useAddress();
   const [cartItems, setCartItems] = useState([]);
   const [getLocation, setGetLocation] = useState(false);
+  const { user } = useUser();
 
   useEffect(() => {
+    if (!user) return;
     const savedCart = localStorage.getItem("cartItems");
     if (savedCart) {
       setCartItems(JSON.parse(savedCart));
@@ -17,6 +20,7 @@ export const CartProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    if (!user) return;
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 

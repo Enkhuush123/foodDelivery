@@ -18,11 +18,14 @@ import { Tab, Tabs } from "./tabs";
 import { ShopIconWhite } from "../_icons/shopIconWhite";
 import { useCart } from "@/context/cartContext";
 import { useEffect, useState } from "react";
+import { useUser } from "@/context/userContext";
 
 export const Cart = () => {
-  const [foodOrders, setFoodOrders] = useState();
+  const [foodOrders, setFoodOrders] = useState([]);
+  const { user } = useUser();
+  console.log(user, "user");
   const getData = async () => {
-    const data = await fetch("http://localhost:9000/foodOrder", {
+    const data = await fetch(`http://localhost:9000/foodOrder/${user}`, {
       method: "GET",
       headers: { accept: "application/json" },
     });

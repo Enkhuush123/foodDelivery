@@ -64,8 +64,6 @@ export const FoodContain = (props) => {
     const json = await data.json();
     setCategory(json);
     console.log(json, "data");
-
-    await getFood();
   };
 
   const handleEdit = async () => {
@@ -141,18 +139,16 @@ export const FoodContain = (props) => {
     }
   };
 
-  const toBase64 = (file) => {};
-
   useEffect(() => {
     getData();
   }, []);
 
   return (
     <div className="flex flex-wrap ">
-      <div className="w-[270.75px] h-[241px] rounded-lg shadow-sm  flex flex-col justify-center  gap-2 p-5">
-        <div className="w-[238.75px] h-[129px] flex justify-center relative ">
+      <div className="w-[270.75px] h-[241px] rounded-lg shadow-sm  flex flex-col justify-center items-center p-5  gap-2 ">
+        <div className="w-[238.75px] h-[129px] flex justify-center relative items-center ">
           <Image
-            className="w-[238.75px] h-[129px] absolute z-50 object-cover  rounded-lg"
+            className="w-[238.75px] h-[129px] absolute z-50 object-cover flex   rounded-lg"
             height={"100"}
             width={"100"}
             src={img || "/food.png"}
@@ -302,14 +298,16 @@ export const FoodContain = (props) => {
             </Dialog>
           </div>
         </div>
-        <div className="flex justify-between items-center">
-          <p className="font-normal text-sm text-red-600  ">{name}</p>
-          <p>{price}₮</p>
-        </div>
-        <div>
-          <p className="font-normal text-xs h-8 overflow-auto ">
-            {ingredients}
-          </p>
+        <div className="flex gap-3 flex-col">
+          <div className="flex justify-between items-center">
+            <p className="font-normal text-sm text-red-600  ">{name}</p>
+            <p>{price}₮</p>
+          </div>
+          <div>
+            <p className="font-normal text-xs h-8 overflow-auto ">
+              {ingredients}
+            </p>
+          </div>
         </div>
       </div>
     </div>

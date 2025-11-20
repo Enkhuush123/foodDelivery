@@ -87,7 +87,7 @@ export const AddFoodDialog = ({ categoryId, name, getData }) => {
         image: logoUrl,
       }),
     });
-    if (!res.ok) throw new Error("Failed to add dish");
+    if (!res.ok) console.log("failed to add food");
     await getData();
 
     setAlertMessage(`Dish "${newFood.foodName}" added successfully!`);

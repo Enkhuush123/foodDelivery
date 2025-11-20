@@ -20,7 +20,6 @@ export const AllDishes = ({ name, categoryId }) => {
     );
     const jsonData = await data.json();
     setFoods(jsonData);
-    console.log(jsonData, "kakakak");
   };
 
   useEffect(() => {

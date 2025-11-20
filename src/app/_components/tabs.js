@@ -19,11 +19,11 @@ import { useAddress } from "@/context/addressContext";
 import { FoodIcon } from "../_icons/foodIcon";
 import { DateIcon } from "../_icons/dateIcon";
 import { useUser } from "@/context/userContext";
-export const Tab = () => {
-  const { cartItems, removeFromCart, updateQuantity } = useCart();
+export const Tab = ({ foods, getFoods }) => {
+  const { cartItems, removeFromCart, updateQuantity, cartClear } = useCart();
   const { address, setAddress } = useAddress();
   const [orders, setOrders] = useState([]);
-  const [quantity, setQuantity] = useState(1);
+
   const { user } = useUser();
 
   const TotalPrice = cartItems.reduce(
@@ -66,7 +66,6 @@ export const Tab = () => {
     } catch (err) {
       console.log(err, "ggg");
     }
-    console.log(orders, "kkk");
   };
 
   return (
@@ -246,7 +245,7 @@ export const Tab = () => {
             {" "}
             <p>Order history</p>
           </div>
-          {orders.length === 0 ? (
+          {foods.length === 0 ? (
             <div className="bg-neutral-200 gap-2 rounded-lg w-full h-[182px] flex flex-col justify-center items-center">
               <WebLogo />
               <p className="font-bold text-sm">No Orders Yet?</p>
@@ -256,22 +255,15 @@ export const Tab = () => {
               </p>
             </div>
           ) : (
-            orders.map((items, index) => (
-              <div key={index} className="flex gap-3 flex-col p-5">
-                <div>
+            foods.map((items, index) => (
+              <div key={index} className="flex gap-3 flex-col p-1">
+                <div className="flex justify-between">
                   <p>{items.totalPrice}MNT</p>
+                  <div className="h-7 p-2 border flex items-center justify-between rounded-full ">
+                    <p className="font-semibold text-xs">{items.status}</p>
+                  </div>
                 </div>
                 <div className="flex">
-                  {items.foodOrderItems?.map((foodItem, idx) => (
-                    <div key={foodItem.food?._id || idx} className="">
-                      {foodItem.map((food) => (
-                        <div key={food._id}>
-                          <p>{food.foodName}</p>
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-
                   <div className="flex">
                     <DateIcon />
                     <p>1</p>

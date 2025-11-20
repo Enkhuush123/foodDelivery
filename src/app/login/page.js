@@ -69,7 +69,10 @@ export default function Home() {
     <div className="flex justify-center items-center h-dvh gap-10">
       <div className="flex gap-5 flex-col">
         <div>
-          <button className="w-9 h-9 border flex justify-center items-center">
+          <button
+            onClick={() => router.push("/")}
+            className="w-9 h-9 border flex justify-center items-center"
+          >
             <LeftArrow />
           </button>
         </div>

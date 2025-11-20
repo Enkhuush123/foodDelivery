@@ -26,7 +26,9 @@ export const AddressProvider = ({ children }) => {
   const saveAddress = (newAddress) => {
     if (!user) return;
     setAddress(newAddress);
-    localStorage.setItem("DeliveryAddress", newAddress);
+    if (user) {
+      localStorage.setItem("DeliveryAddress", newAddress);
+    }
   };
   const hasAddress = address.trim() !== "";
   return (

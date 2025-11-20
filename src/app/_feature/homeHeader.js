@@ -199,7 +199,7 @@ export const HomeHeader = () => {
                     onClick={logout}
                     className="w-20 h-9 p-1 bg-neutral-200 rounded-full flex justify-center items-center"
                   >
-                    <p className="text-red-500"> Sign out</p>
+                    <p className="text-red-500"> Log out</p>
                   </button>
                 </div>
               )}
