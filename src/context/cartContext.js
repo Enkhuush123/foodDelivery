@@ -43,7 +43,10 @@ export const CartProvider = ({ children }) => {
             : cartItem
         );
       } else {
-        return [...prev, { ...item, quantity: item.quantity }];
+        return [
+          ...prev,
+          { ...item, quantity: item.quantity, foodId: item._id },
+        ];
       }
     });
   };

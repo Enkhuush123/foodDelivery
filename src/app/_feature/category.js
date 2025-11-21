@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { Plus } from "../_icons/plus";
 import { CategoryCard } from "../_components/categoryCard";
 import { Product } from "./product";
+import { useUser } from "@/context/userContext";
 
 export const Category = () => {
   const [addCategory, setAddCategory] = useState("");
@@ -21,6 +22,8 @@ export const Category = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [foods, setFoods] = useState([]);
+  const { user, logout } = useUser();
+  const [profile, setProfile] = useState(false);
 
   const options = {
     method: "GET",
@@ -68,8 +71,8 @@ export const Category = () => {
   }, []);
 
   return (
-    <div>
-      <div className="flex flex-col gap-5">
+    <div className="w-full max-w-[1200px]  shadow-sm flex flex-col p-5 gap-2 rounded-lg border-none ">
+      <div className="flex flex-col gap-5 ">
         {showAlert && (
           <div className="fixed w-full inset-0 flex justify-center  p-5">
             <div className="w-[368px] h-10 bg-black rounded-lg flex items-center justify-center">
@@ -79,14 +82,31 @@ export const Category = () => {
             </div>
           </div>
         )}
-        <div className="w-full flex pt-6   justify-end">
-          <img
-            src="/enhush.jpg"
-            alt="enhush"
-            className="w-9 h-9 object-cover rounded-full"
-          />
+        <div>
+          <button
+            onClick={() => setProfile(!profile)}
+            className="w-full flex pt-6   justify-end"
+          >
+            <img
+              src="/enhush.jpg"
+              alt="enhush"
+              className="w-9 h-9 object-cover rounded-full"
+            />
+          </button>
+          {profile && (
+            <div className="w-[188px] h-[104px] bg-white rounded-md absolute right-5 flex  flex-col  gap-5 items-center justify-center  ">
+              {user.email}
+              <button
+                onClick={logout}
+                className="w-20 h-9 p-1 bg-neutral-200 rounded-full flex justify-center items-center"
+              >
+                <p className="text-red-500"> Log out</p>
+              </button>
+            </div>
+          )}
         </div>
-        <div className="w-[1950px] shadow-sm flex flex-col p-5 gap-2 rounded-lg bg-white ">
+
+        <div className="w-full max-w-[1200px] shadow-sm flex flex-col p-5 gap-2 rounded-lg bg-white ">
           <div>
             <h1 className="font-semibold text-xl">Dishes category</h1>
           </div>
@@ -145,7 +165,7 @@ export const Category = () => {
             </Dialog>
           </div>
         </div>
-        <div className="flex overflow-auto h-[870px] ">
+        <div className="flex overflow-y-auto h-[870px] ">
           <Product />
         </div>
       </div>

@@ -9,6 +9,7 @@ import { DishesMain } from "./_feature/DishesMain";
 import { Footer } from "./_feature/footerMain";
 
 export default function Home() {
+  const [selectedCategory, setSelectedCategory] = useState("ALL");
   const router = useRouter();
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -19,8 +20,11 @@ export default function Home() {
         <HomeHeader />
         <BG />
       </div>
-      <CategoryContain />
-      <DishesMain />
+      <CategoryContain
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
+      <DishesMain selectedCategory={selectedCategory} />
       <Footer />
     </div>
   );

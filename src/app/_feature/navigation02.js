@@ -7,8 +7,11 @@ import { useRouter } from "next/navigation";
 export const Navigation02 = () => {
   const router = useRouter();
   return (
-    <div className="w-[205px] h-dvh  shadow-sm flex flex-col gap-10 bg-white  ">
-      <div className="flex p-5  gap-2 ">
+    <div className="w-[205px]  max-h-[1200px]  shadow-sm flex flex-col gap-10 bg-white  ">
+      <div
+        className="flex p-5  gap-2  cursor-pointer "
+        onClick={() => router.push("/")}
+      >
         <div className="flex items-center">
           <WebLogo />
         </div>

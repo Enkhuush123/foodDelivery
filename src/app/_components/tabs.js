@@ -19,8 +19,9 @@ import { useAddress } from "@/context/addressContext";
 import { FoodIcon } from "../_icons/foodIcon";
 import { DateIcon } from "../_icons/dateIcon";
 import { useUser } from "@/context/userContext";
+import { LocIcon } from "../_icons/locIcon";
 export const Tab = ({ foods, getFoods }) => {
-  const { cartItems, removeFromCart, updateQuantity, cartClear } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, clearCart } = useCart();
   const { address, setAddress } = useAddress();
   const [orders, setOrders] = useState([]);
 
@@ -50,7 +51,7 @@ export const Tab = ({ foods, getFoods }) => {
           totalPrice: TotalPrice + shipping,
           address: address,
           foodOrderItems: cartItems.map((item) => ({
-            food: item._id,
+            food: item.foodId,
             quantity: item.quantity,
           })),
         }),
@@ -61,7 +62,8 @@ export const Tab = ({ foods, getFoods }) => {
       }
       const newOrder = await res.json();
       setOrders([newOrder, ...orders]);
-
+      getFoods();
+      clearCart();
       setAddress("");
     } catch (err) {
       console.log(err, "ggg");
@@ -240,7 +242,7 @@ export const Tab = ({ foods, getFoods }) => {
         )}
       </TabsContent>
       <TabsContent className={`flex gap-10 flex-col`} value="Order">
-        <div className="w-[471px] bg-white  rounded-lg p-5 gap- flex flex-col ">
+        <div className="w-[471px] bg-white  rounded-lg p-5 gap-5 flex flex-col ">
           <div className="font-semibold text-2xl">
             {" "}
             <p>Order history</p>
@@ -263,10 +265,18 @@ export const Tab = ({ foods, getFoods }) => {
                     <p className="font-semibold text-xs">{items.status}</p>
                   </div>
                 </div>
-                <div className="flex">
-                  <div className="flex">
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-3">
                     <DateIcon />
-                    <p>1</p>
+                    <p>
+                      {new Date(items.createdAt).toLocaleDateString(
+                        "en-US",
+                        {}
+                      )}
+                    </p>
+                  </div>
+                  <div className="flex gap-3 items-center">
+                    <LocIcon /> {items.address}
                   </div>
                 </div>
               </div>

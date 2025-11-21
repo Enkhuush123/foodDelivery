@@ -50,18 +50,6 @@ export default function PasswordPage() {
         }),
       });
 
-      const data = await res.json();
-
-      if (res.status === 400) {
-        setError("Email already exists.");
-        return;
-      }
-
-      if (!res.ok) {
-        setError(data.message);
-        return;
-      }
-
       router.push("/login");
     } catch (err) {
       console.log(err);

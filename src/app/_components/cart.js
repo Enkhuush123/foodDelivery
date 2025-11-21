@@ -51,7 +51,7 @@ export const Cart = () => {
           <SheetDescription
             className={`flex justify-center p-3`}
           ></SheetDescription>
-          <Tab foods={foodOrders} />
+          <Tab foods={foodOrders} getFoods={getData} />
         </SheetHeader>
       </SheetContent>
     </Sheet>

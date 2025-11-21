@@ -17,7 +17,7 @@ export const UserProvider = ({ children }) => {
   };
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("user");
+    localStorage.clear();
   };
   return (
     <UserContext.Provider value={{ user, login, logout }}>

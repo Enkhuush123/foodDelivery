@@ -16,25 +16,50 @@ import * as React from "react";
 import { Calendar } from "@/components/ui/calendar";
 
 import { Profile } from "./profile";
+import { useUser } from "@/context/userContext";
 
 export const CardHeader = () => {
   const [foodOrders, setFoodOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState([]);
   const [open, setOpen] = useState(false);
+  const [dateOpen, setDateOpen] = useState(false);
+  const [date, setDate] = useState(null);
+  const [filteredOrders, setFilteredOrders] = useState([]);
+  const [profile, setProfile] = useState(false);
+  const { user, logout } = useUser();
 
   const getData = async () => {
-    const data = await fetch("http://localhost:9000/foodOrder", {
+    const res = await fetch("http://localhost:9000/foodOrder", {
       method: "GET",
       headers: { accept: "application/json" },
     });
-    const json = await data.json();
-    setFoodOrders(json);
-    console.log(json, "gg");
+    const data = await res.json();
+    setFoodOrders(data);
+    setFilteredOrders(data);
+    console.log(filteredOrders, "gg");
   };
 
   useEffect(() => {
     getData();
   }, []);
+
+  useEffect(() => {
+    if (!date) {
+      setFilteredOrders(foodOrders);
+      return;
+    }
+
+    const filtered = foodOrders.filter((order) => {
+      const orderDate = new Date(order.createdAt);
+      return (
+        orderDate.getFullYear() === date.getFullYear() &&
+        orderDate.getMonth() === date.getMonth() &&
+        orderDate.getDate() === date.getDate()
+      );
+    });
+
+    setFilteredOrders(filtered);
+  }, [date, foodOrders]);
 
   const toggleSelect = (orderId) => {
     setSelectedOrder((prev) =>
@@ -48,7 +73,7 @@ export const CardHeader = () => {
     if (selectedOrder.length === foodOrders.length) {
       setSelectedOrder([]);
     } else {
-      setSelectedOrder(foodOrders.map((order) => order._id));
+      setSelectedOrder(filteredOrders.map((order) => order._id));
     }
   };
   const changeStatus = async (newStatus) => {
@@ -72,24 +97,60 @@ export const CardHeader = () => {
     setSelectedOrder([]);
   };
   return (
-    <div>
-      <div className="w-full flex pt-6 pb-6  justify-end">
-        <img
-          src="/enhush.jpg"
-          alt="enhush"
-          className="w-9 h-9 object-cover rounded-full"
-        />
+    <div className="w-full max-w-[1200px] p-5  gap-5 flex flex-col rounded-md">
+      <div className="w-full flex  justify-end items-end flex-col gap-2 ">
+        <button
+          onClick={() => setProfile(!profile)}
+          className="w-full flex   justify-end "
+        >
+          <img
+            src="/enhush.jpg"
+            alt="enhush"
+            className="w-9 h-9 object-cover rounded-full"
+          />
+        </button>
+        {profile && (
+          <div className="w-[188px] h-[104px] bg-white rounded-md   flex  flex-col  gap-5 items-center justify-center  ">
+            {user.email}
+            <button
+              onClick={logout}
+              className="w-20 h-9 p-1 bg-neutral-200 rounded-full flex justify-center items-center"
+            >
+              <p className="text-red-500"> Log out</p>
+            </button>
+          </div>
+        )}
       </div>
-      <div className="rounded-lg bg-white w-[1950px]">
+      <div className="rounded-md bg-white w-full max-w-[1200px]">
         <div>
           <div className=" flex justify-between shadow-sm p-5   ">
             <div className=" flex flex-col items-center">
               <p className="font-bold text-xl">Orders</p>
-              <p>{foodOrders.length} items</p>
+              <p>{filteredOrders.length} items</p>
             </div>
             <div className="flex pr-4 items-center gap-3">
               <div className="w-[300px] h-9 rounded-full shadow-sm flex justify-center items-center">
-                <input type="date"></input>
+                <input
+                  type="date"
+                  value={date ? date.toLocaleDateString() : ""}
+                  onClick={() => setDateOpen(!dateOpen)}
+                  readOnly
+                  className="border p-2 rounded"
+                  placeholder="Select date"
+                />
+                {dateOpen && (
+                  <div className="absolute z-50 mt-2">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={(d) => {
+                        setDate(d);
+                        setDateOpen(false);
+                      }}
+                      className="border rounded"
+                    />
+                  </div>
+                )}
               </div>
               <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
@@ -179,7 +240,7 @@ export const CardHeader = () => {
             </div>
           </div>
           <div>
-            {foodOrders.map((order, index) => (
+            {filteredOrders.map((order, index) => (
               <FoodCards
                 key={order._id}
                 foods={order.foodOrderItems}

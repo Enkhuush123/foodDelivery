@@ -9,8 +9,9 @@ import { LeftArrowWhite } from "../_icons/leftArrowWhite";
 
 const option = { method: "GET", headers: { accept: "application/json" } };
 
-export const CategoryContain = () => {
+export const CategoryContain = ({ selectedCategory, setSelectedCategory }) => {
   const [getCategory, setGetCategory] = useState([]);
+
   const getData = async () => {
     const data = await fetch(`http://localhost:9000/category`, option);
     const jsonData = await data.json();
@@ -27,8 +28,28 @@ export const CategoryContain = () => {
       </div>
       <div className="flex gap-2 items-center">
         <LeftArrowWhite />
+        <button
+          className={`w-auto h-9  rounded-full flex items-center gap-5 p-3 ${
+            selectedCategory === "ALL"
+              ? "bg-black text-white"
+              : "bg-white text-black"
+          }`}
+          onClick={() => setSelectedCategory("ALL")}
+        >
+          All Dishes
+        </button>
         {getCategory.map((cat) => (
-          <CategoryCards key={cat._id} name={cat.categoryName} />
+          <button
+            key={cat._id}
+            className={`w-auto h-9  rounded-full flex items-center gap-5 p-3 ${
+              selectedCategory === cat._id
+                ? "bg-black text-white"
+                : "bg-white text-black"
+            }`}
+            onClick={() => setSelectedCategory(cat._id)}
+          >
+            {cat.categoryName}
+          </button>
         ))}
         <RightArrowWhite />
       </div>

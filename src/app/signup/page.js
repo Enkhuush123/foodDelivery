@@ -16,10 +16,9 @@ export default function SigninPage() {
       setEmailError("Invalid email address.");
       return;
     }
-    router.push(`/signup/password?email=${email}`);
 
     try {
-      const res = await fetch(`http://localhost:9000/auth/sign-up`, {
+      const res = await fetch(`http://localhost:9000/auth/check-email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -32,15 +31,11 @@ export default function SigninPage() {
       });
 
       const data = await res.json();
-      if (res.status === 400) {
+      if (data.exists) {
         setEmailError("Email already in use.");
         return;
       }
-      if (!res.ok) {
-        setError(data.message);
-        return;
-      }
-      router.push(`/signup/password?email=${email}`);
+      router.push(`/signup/password?email=${encodeURIComponent(email)}`);
     } catch (err) {
       console.log(err);
       setEmailError("Something went wrong.");

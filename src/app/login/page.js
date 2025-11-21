@@ -58,7 +58,11 @@ export default function Home() {
           id: data.user.id,
         });
         localStorage.setItem("token", data.token);
-        router.push("/");
+        if (data.user.role === "ADMIN") {
+          router.push("/admin");
+        } else {
+          router.push("/");
+        }
         console.log(login);
       }
     } catch (err) {
@@ -95,6 +99,7 @@ export default function Home() {
           </div>
           <div>
             <input
+              type="password"
               onChange={(e) => setPassword(e.target.value)}
               className={`w-[416px] h-9 border rounded-lg p-5 ${
                 passwordError ? "border-red-500" : ""
