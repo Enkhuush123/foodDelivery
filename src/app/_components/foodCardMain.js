@@ -22,7 +22,7 @@ import { CheckIcon } from "lucide-react";
 import { CheckedIcon } from "../_icons/checkedIcon";
 import { useState } from "react";
 
-export const FoodCardMain = ({ ingredients, name, price, img }) => {
+export const FoodCardMain = ({ ingredients, name, price, img, _id }) => {
   const { addToCart, cartItems } = useCart();
   const [open, setOpen] = useState(false);
   const isAdded = cartItems.some((item) => item.name === name);
@@ -45,6 +45,7 @@ export const FoodCardMain = ({ ingredients, name, price, img }) => {
       ingredients,
       totalPrice: price * quantity,
       quantity,
+      _id,
     });
   };
   return (

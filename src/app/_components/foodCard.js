@@ -26,7 +26,7 @@ export const FoodCards = (props) => {
     toggleSelect,
     getData,
   } = props;
-  console.log(foods);
+  console.log(foods, "pzda");
   const [deliveryState, setDeliveryState] = useState(props.status || "");
 
   const handleChangeDelivery = async (newState) => {
@@ -76,25 +76,21 @@ export const FoodCards = (props) => {
             </button>
           </PopoverTrigger>
           <PopoverContent className="w-100 flex flex-col gap-5 z-50 inset-0 bg-white">
-            {foods.map((item, index) => (
-              <div key={index}>
-                {item.map((food) => {
-                  const price = food.food?.price * food.quantity || 0;
+            {foods.map((item) => {
+              const price = item.food?.price * item.quantity || 0;
 
-                  return (
-                    <div className="flex justify-between" key={food._id}>
-                      <div className="w-[239px] h-[30px] flex gap-2 ">
-                        <img className="w-8 h-[30px]" src={food.food?.image} />
-                        <span>{food.food?.foodName}</span>
-                      </div>
-                      <span className="font-normal text-sm">
-                        {price}₮ x {food.quantity}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
+              return (
+                <div className="flex justify-between" key={item._id}>
+                  <div className="w-[239px] h-[30px] flex gap-2 ">
+                    <img className="w-8 h-[30px]" src={item.food?.image} />
+                    <span>{item.food?.foodName}</span>
+                  </div>
+                  <span className="font-normal text-sm">
+                    {price}₮ x {item.quantity}
+                  </span>
+                </div>
+              );
+            })}
           </PopoverContent>
         </Popover>
       </div>

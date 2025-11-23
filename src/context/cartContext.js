@@ -12,7 +12,6 @@ export const CartProvider = ({ children }) => {
   const { user } = useUser();
 
   useEffect(() => {
-    if (!user) return;
     const savedCart = localStorage.getItem("cartItems");
     if (savedCart) {
       setCartItems(JSON.parse(savedCart));
@@ -38,7 +37,7 @@ export const CartProvider = ({ children }) => {
                 ...cartItem,
                 quantity: cartItem.quantity + item.quantity,
                 totalPrice:
-                  (cartItem.totalPrice + item.totalPrice) * cartItem.price,
+                  (cartItem.quantity + item.quantity) * cartItem.price,
               }
             : cartItem
         );

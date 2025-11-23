@@ -34,6 +34,7 @@ export const CategoryDishes = ({ name, categoryId }) => {
             price={food.price}
             ingredients={food.ingredients}
             img={food.image}
+            _id={food._id}
           />
         ))}
       </div>

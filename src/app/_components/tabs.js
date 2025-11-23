@@ -26,6 +26,7 @@ export const Tab = ({ foods, getFoods }) => {
   const [orders, setOrders] = useState([]);
 
   const { user } = useUser();
+  console.log(cartItems, "cart");
 
   const TotalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -265,7 +266,22 @@ export const Tab = ({ foods, getFoods }) => {
                     <p className="font-semibold text-xs">{items.status}</p>
                   </div>
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col gap-3">
+                  <div>
+                    {items.foodOrderItems.map((foodItem, i) => (
+                      <div
+                        className="flex justify-between items-center "
+                        key={i}
+                      >
+                        {" "}
+                        <div className="flex items-center gap-3">
+                          <FoodIcon />
+                          <p>{foodItem.food?.foodName}</p>
+                        </div>
+                        <p>{foodItem.quantity}x</p>
+                      </div>
+                    ))}
+                  </div>
                   <div className="flex items-center gap-3">
                     <DateIcon />
                     <p>

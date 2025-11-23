@@ -17,13 +17,14 @@ import { Calendar } from "@/components/ui/calendar";
 
 import { Profile } from "./profile";
 import { useUser } from "@/context/userContext";
+import { CalendarIcon } from "../_icons/calendarIcon";
 
 export const CardHeader = () => {
   const [foodOrders, setFoodOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState([]);
   const [open, setOpen] = useState(false);
   const [dateOpen, setDateOpen] = useState(false);
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(new Date());
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [profile, setProfile] = useState(false);
   const { user, logout } = useUser();
@@ -96,6 +97,13 @@ export const CardHeader = () => {
     setOpen(false);
     setSelectedOrder([]);
   };
+  const formatDate = (d) => {
+    if (!d) return "";
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
   return (
     <div className="w-full max-w-[1200px] p-5  gap-5 flex flex-col rounded-md">
       <div className="w-full flex  justify-end items-end flex-col gap-2 ">
@@ -129,17 +137,21 @@ export const CardHeader = () => {
               <p>{filteredOrders.length} items</p>
             </div>
             <div className="flex pr-4 items-center gap-3">
-              <div className="w-[300px] h-9 rounded-full shadow-sm flex justify-center items-center">
-                <input
-                  type="date"
-                  value={date ? date.toLocaleDateString() : ""}
-                  onClick={() => setDateOpen(!dateOpen)}
-                  readOnly
-                  className="border p-2 rounded"
-                  placeholder="Select date"
-                />
+              <div className="w-[250px] relative ">
+                <div className="flex items-center gap-15 border rounded-full p-2  bg-white shadow-sm">
+                  <CalendarIcon />
+                  <input
+                    type="date"
+                    value={formatDate(date)}
+                    onClick={() => setDateOpen(!dateOpen)}
+                    readOnly
+                    className=" flex-1 cursor-pointer  bg-transparent outline-none "
+                    placeholder="Select date"
+                  />
+                </div>
+
                 {dateOpen && (
-                  <div className="absolute z-50 mt-2">
+                  <div className="absolute z-50 top-10">
                     <Calendar
                       mode="single"
                       selected={date}
