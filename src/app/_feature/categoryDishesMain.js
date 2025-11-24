@@ -22,7 +22,7 @@ export const CategoryDishes = ({ name, categoryId }) => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 ">
       <div>
         <p className="text-white font-semibold text-3xl">{name}</p>
       </div>
