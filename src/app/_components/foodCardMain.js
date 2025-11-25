@@ -121,7 +121,10 @@ export const FoodCardMain = ({ ingredients, name, price, img, _id }) => {
                   </div>
                 </div>
                 <Button
-                  onClick={handleAddToCart}
+                  onClick={() => {
+                    handleAddToCart();
+                    setOpen(false);
+                  }}
                   className="w-[377px] h-11 rounded-lg"
                   type="submit"
                 >
