@@ -24,7 +24,6 @@ export const Tab = ({ foods, getFoods }) => {
   const { cartItems, removeFromCart, updateQuantity, clearCart } = useCart();
   const { address, setAddress } = useAddress();
   const [orders, setOrders] = useState([]);
-  console.log(cartItems, "ll");
 
   const { user } = useUser();
   console.log(cartItems, "cart");
@@ -49,7 +48,7 @@ export const Tab = ({ foods, getFoods }) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          user: user._id,
+          user: user.id,
           totalPrice: TotalPrice + shipping,
           address: address,
           foodOrderItems: cartItems.map((item) => ({
@@ -260,7 +259,7 @@ export const Tab = ({ foods, getFoods }) => {
             </div>
           ) : (
             foods.map((items, index) => (
-              <div key={index} className="flex gap-3 flex-col p-1 ">
+              <div key={index} className="flex gap-3 flex-col p-1">
                 <div className="flex justify-between">
                   <p>{items.totalPrice}MNT</p>
                   <div className="h-7 p-2 border flex items-center justify-between rounded-full ">
@@ -271,7 +270,7 @@ export const Tab = ({ foods, getFoods }) => {
                   <div>
                     {items.foodOrderItems.map((foodItem, i) => (
                       <div
-                        className="flex justify-between items-center  "
+                        className="flex justify-between items-center "
                         key={i}
                       >
                         {" "}
@@ -296,7 +295,6 @@ export const Tab = ({ foods, getFoods }) => {
                     <LocIcon /> {items.address}
                   </div>
                 </div>
-                <div className="w-full bg-neutral-400 border"></div>
               </div>
             ))
           )}
