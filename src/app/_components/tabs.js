@@ -14,16 +14,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { useAddress } from "@/context/addressContext";
 import { FoodIcon } from "../_icons/foodIcon";
 import { DateIcon } from "../_icons/dateIcon";
 import { useUser } from "@/context/userContext";
 import { LocIcon } from "../_icons/locIcon";
-export const Tab = ({ foods, getFoods }) => {
+export const Tab = () => {
   const { cartItems, removeFromCart, updateQuantity, clearCart } = useCart();
   const { address, setAddress } = useAddress();
   const [orders, setOrders] = useState([]);
+  const [foodOrders, setFoodOrders] = useState([]);
 
   const { user } = useUser();
   console.log(cartItems, "cart");
@@ -48,7 +50,7 @@ export const Tab = ({ foods, getFoods }) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          user: user.id,
+          user: user._id,
           totalPrice: TotalPrice + shipping,
           address: address,
           foodOrderItems: cartItems.map((item) => ({
@@ -63,13 +65,25 @@ export const Tab = ({ foods, getFoods }) => {
       }
       const newOrder = await res.json();
       setOrders([newOrder, ...orders]);
-      getFoods();
+      getData();
       clearCart();
-      setAddress("");
     } catch (err) {
       console.log(err, "ggg");
     }
   };
+  const getData = async () => {
+    const data = await fetch(`http://localhost:9000/foodOrder/${user._id}`, {
+      method: "GET",
+      headers: { accept: "application/json" },
+    });
+    const json = await data.json();
+    setFoodOrders(json);
+    console.log(json, "gg");
+  };
+
+  useEffect(() => {
+    getData();
+  }, [user]);
 
   return (
     <Tabs defaultValue="Cart" className=" flex gap-20">
@@ -248,7 +262,7 @@ export const Tab = ({ foods, getFoods }) => {
             {" "}
             <p>Order history</p>
           </div>
-          {foods.length === 0 ? (
+          {foodOrders.length === 0 ? (
             <div className="bg-neutral-200 gap-2 rounded-lg w-full h-[182px] flex flex-col justify-center items-center">
               <WebLogo />
               <p className="font-bold text-sm">No Orders Yet?</p>
@@ -258,7 +272,7 @@ export const Tab = ({ foods, getFoods }) => {
               </p>
             </div>
           ) : (
-            foods.map((items, index) => (
+            foodOrders.map((items, index) => (
               <div key={index} className="flex gap-3 flex-col p-1">
                 <div className="flex justify-between">
                   <p>{items.totalPrice}MNT</p>

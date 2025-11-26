@@ -21,23 +21,6 @@ import { useEffect, useState } from "react";
 import { useUser } from "@/context/userContext";
 
 export const Cart = () => {
-  const [foodOrders, setFoodOrders] = useState([]);
-  const { user } = useUser();
-  console.log(user, "userqweqweqweewq");
-
-  const getData = async () => {
-    const data = await fetch(`http://localhost:9000/foodOrder/${user.id}`, {
-      method: "GET",
-      headers: { accept: "application/json" },
-    });
-    const json = await data.json();
-    setFoodOrders(json);
-    console.log(json, "gg");
-  };
-
-  useEffect(() => {
-    getData();
-  }, [user]);
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -53,7 +36,7 @@ export const Cart = () => {
           <SheetDescription
             className={`flex justify-center p-3`}
           ></SheetDescription>
-          <Tab foods={foodOrders} getFoods={getData} />
+          <Tab />
         </SheetHeader>
       </SheetContent>
     </Sheet>

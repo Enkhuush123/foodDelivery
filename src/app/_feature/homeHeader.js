@@ -36,20 +36,20 @@ export const HomeHeader = () => {
 
   const router = useRouter();
 
-  const getData = async () => {
-    if (!user) return;
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-      },
-    };
-    const data = await fetch(`http://localhost:9000/auth/refresh`, options);
-    const jsonData = await data.json();
-    setAddressBack(jsonData.address || "");
-    saveAddress(jsonData.address || "");
-    console.log(jsonData, "ehehe");
-  };
+  // const getData = async () => {
+  //   if (!user) return;
+  //   const options = {
+  //     method: "GET",
+  //     headers: {
+  //       accept: "application/json",
+  //     },
+  //   };
+  //   const data = await fetch(`http://localhost:9000/auth/refresh`, options);
+  //   const jsonData = await data.json();
+  //   setAddressBack(jsonData.address || "");
+  //   saveAddress(jsonData.address || "");
+  //   console.log(jsonData, "ehehe");
+  // };
 
   const HandleAddress = async (e) => {
     e.preventDefault();
@@ -64,7 +64,7 @@ export const HomeHeader = () => {
       const res = await fetch(`http://localhost:9000/auth/`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: user.id, address: addressInput }),
+        body: JSON.stringify({ id: user._id, address: addressInput }),
       });
       const data = await res.json();
 
@@ -90,9 +90,9 @@ export const HomeHeader = () => {
     }
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   return (
     <div className="w-full max-sm:w-full bg-black h-[172px] flex items-center justify-between p-5 ">

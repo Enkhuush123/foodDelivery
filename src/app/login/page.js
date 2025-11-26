@@ -40,9 +40,8 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email, password: password }),
       });
-      const data = await res.json();
 
-      if (res.status === 404) {
+      if (res.status === 400) {
         setEmailError("Email not found.");
         return;
       }
@@ -51,11 +50,12 @@ export default function Home() {
         setPasswordError("Incorrect password.");
         return;
       }
+      const data = await res.json();
       if (res.ok) {
         login({
           email: data.user.email,
           role: data.user.role,
-          id: data.user.id,
+          _id: data.user.id,
         });
         localStorage.setItem("token", data.token);
         if (data.user.role === "ADMIN") {

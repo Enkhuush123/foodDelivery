@@ -12,6 +12,15 @@ import {
   DialogFooter,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import * as React from "react";
 import { Calendar } from "@/components/ui/calendar";
 
@@ -27,17 +36,27 @@ export const CardHeader = () => {
   const [date, setDate] = useState(new Date());
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [profile, setProfile] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [orderPerPage, setOrderPerPage] = useState(10);
   const { user, logout } = useUser();
 
+  const indexOfLastOrder = currentPage * orderPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - orderPerPage;
+  const currentOrders = filteredOrders.slice(
+    indexOfFirstOrder,
+    indexOfLastOrder
+  );
+
   const getData = async () => {
-    const res = await fetch("http://localhost:9000/foodOrder", {
+    const data = await fetch("http://localhost:9000/foodOrder", {
       method: "GET",
       headers: { accept: "application/json" },
     });
-    const data = await res.json();
-    setFoodOrders(data);
-    setFilteredOrders(data);
+    const jsonData = await data.json();
+    setFoodOrders(jsonData);
+    setFilteredOrders(jsonData);
     console.log(filteredOrders, "gg");
+    console.log(jsonData, "ll");
   };
 
   useEffect(() => {
@@ -104,6 +123,11 @@ export const CardHeader = () => {
     const day = String(d.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(filteredOrders.length / orderPerPage); i++) {
+    pageNumbers.push(i);
+  }
   return (
     <div className="w-full max-w-[1200px]  p-5  gap-5 flex flex-col rounded-md">
       <div className="w-full flex  justify-end items-end flex-col gap-2 ">
@@ -252,11 +276,11 @@ export const CardHeader = () => {
             </div>
           </div>
           <div>
-            {filteredOrders.map((order, index) => (
+            {currentOrders.map((order, index) => (
               <FoodCards
                 key={order._id}
                 foods={order.foodOrderItems}
-                index={index + 1}
+                index={indexOfFirstOrder + index + 1}
                 email={order.user.email}
                 foodNumber={order.foodOrderItems.length}
                 date={order.createdAt}
@@ -272,6 +296,29 @@ export const CardHeader = () => {
           </div>
         </div>
       </div>
+      <Pagination>
+        <PaginationContent>
+          <PaginationPrevious
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          />
+          {pageNumbers.map((number) => (
+            <PaginationItem key={number}>
+              <PaginationLink
+                href="#"
+                isActive={number === currentPage}
+                onClick={() => setCurrentPage(number)}
+              >
+                {number}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          <PaginationNext
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, pageNumbers.length))
+            }
+          />
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 };
