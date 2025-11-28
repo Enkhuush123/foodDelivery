@@ -38,17 +38,20 @@ export default function PasswordPage() {
     if (hasError) return;
 
     try {
-      const res = await fetch("http://localhost:9000/auth/sign-up", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-          phoneNumber: "",
-          address: "",
-          role: "USER",
-        }),
-      });
+      const res = await fetch(
+        "https://database-4-5ry8.onrender.com/auth/sign-up",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            password,
+            phoneNumber: "",
+            address: "",
+            role: "USER",
+          }),
+        }
+      );
 
       router.push("/login");
     } catch (err) {
