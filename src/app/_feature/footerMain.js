@@ -11,11 +11,10 @@ const option = {
 export const Footer = () => {
   const [category, setCategory] = useState([]);
 
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
+
   const getData = async () => {
-    const data = await fetch(
-      `https://database-4-5ry8.onrender.com/category`,
-      option
-    );
+    const data = await fetch(`${backend_url}/category`, option);
     const jsonData = await data.json();
     setCategory(jsonData);
     console.log(jsonData, "footer category");

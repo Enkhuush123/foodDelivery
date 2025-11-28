@@ -40,6 +40,8 @@ export const CardHeader = () => {
   const [orderPerPage, setOrderPerPage] = useState(10);
   const { user, logout } = useUser();
 
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
+
   const indexOfLastOrder = currentPage * orderPerPage;
   const indexOfFirstOrder = indexOfLastOrder - orderPerPage;
   const currentOrders = filteredOrders.slice(
@@ -48,7 +50,7 @@ export const CardHeader = () => {
   );
 
   const getData = async () => {
-    const data = await fetch("https://database-4-5ry8.onrender.com/foodOrder", {
+    const data = await fetch(`${backend_url}/foodOrder`, {
       method: "GET",
       headers: { accept: "application/json" },
     });
@@ -98,7 +100,7 @@ export const CardHeader = () => {
   };
   const changeStatus = async (newStatus) => {
     for (const orderId of selectedOrder) {
-      await fetch(`https://database-4-5ry8.onrender.com/foodOrder/${orderId}`, {
+      await fetch(`${backend_url}/foodOrder/${orderId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus }),

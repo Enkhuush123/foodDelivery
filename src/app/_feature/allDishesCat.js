@@ -7,6 +7,8 @@ import { AddFoodDialog } from "../_components/addFoodDialog";
 export const AllDishes = ({ name, categoryId }) => {
   const [foods, setFoods] = useState([]);
 
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
+
   const option = {
     method: "GET",
     headers: {
@@ -14,10 +16,7 @@ export const AllDishes = ({ name, categoryId }) => {
     },
   };
   const getData = async () => {
-    const data = await fetch(
-      `https://database-4-5ry8.onrender.com/foods/${categoryId}`,
-      option
-    );
+    const data = await fetch(`${backend_url}/${categoryId}`, option);
     const jsonData = await data.json();
     setFoods(jsonData);
   };

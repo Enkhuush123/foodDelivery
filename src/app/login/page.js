@@ -15,6 +15,8 @@ export default function Home() {
   const router = useRouter();
   const { login } = useUser();
 
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
+
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const isFromValid = isValidEmail(email) && password.length >= 6;
 
@@ -35,14 +37,11 @@ export default function Home() {
     }
     if (error) return;
     try {
-      const res = await fetch(
-        `https://database-4-5ry8.onrender.com/auth/sign-in`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: email, password: password }),
-        }
-      );
+      const res = await fetch(`${backend_url}/auth/sign-in`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, password: password }),
+      });
 
       if (res.status === 400) {
         setEmailError("Email not found.");

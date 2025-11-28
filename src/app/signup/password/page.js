@@ -16,6 +16,8 @@ export default function PasswordPage() {
   const [confirmPassworderror, setConfirmPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
+
   const isValidPassword = password.length >= 6;
   const isMatchingPassword = password === confirmPassword;
 
@@ -38,20 +40,17 @@ export default function PasswordPage() {
     if (hasError) return;
 
     try {
-      const res = await fetch(
-        "https://database-4-5ry8.onrender.com/auth/sign-up",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email,
-            password,
-            phoneNumber: "",
-            address: "",
-            role: "USER",
-          }),
-        }
-      );
+      const res = await fetch(`${backend_url}/auth/sign-up`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+          phoneNumber: "",
+          address: "",
+          role: "USER",
+        }),
+      });
 
       router.push("/login");
     } catch (err) {

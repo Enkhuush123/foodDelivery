@@ -52,6 +52,8 @@ export const FoodContain = (props) => {
   const [uploading, setUploading] = useState(false);
   const [logoUrl, setLogoUrl] = useState("");
 
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
+
   const [editingFood, setEditingFood] = useState({
     foodName: name || "",
     ingredients: ingredients || "",
@@ -60,33 +62,27 @@ export const FoodContain = (props) => {
     image: img || logoUrl,
   });
   const getData = async () => {
-    const data = await fetch(
-      `https://database-4-5ry8.onrender.com/category`,
-      option
-    );
+    const data = await fetch(`${backend_url}/category`, option);
     const json = await data.json();
     setCategory(json);
     console.log(json, "data");
   };
 
   const handleEdit = async () => {
-    const response = await fetch(
-      `https://database-4-5ry8.onrender.com/foods/${foodId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA0ZGFhM2E5YjFmZDk2ODkxZTBhMyIsImVtYWlsIjoiZW5odXVzaGFxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MzAwNDUwMH0.a9cA_NQ6yT8Yg32h6qjVOMtVxqX0spaYy5484ubW4xU`,
-        },
-        body: JSON.stringify({
-          foodName: editingFood.foodName,
-          category: editingFood.category,
-          ingredients: editingFood.ingredients,
-          price: editingFood.price,
-          image: editingFood.image,
-        }),
-      }
-    );
+    const response = await fetch(`${backend_url}/foods/${foodId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA0ZGFhM2E5YjFmZDk2ODkxZTBhMyIsImVtYWlsIjoiZW5odXVzaGFxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MzAwNDUwMH0.a9cA_NQ6yT8Yg32h6qjVOMtVxqX0spaYy5484ubW4xU`,
+      },
+      body: JSON.stringify({
+        foodName: editingFood.foodName,
+        category: editingFood.category,
+        ingredients: editingFood.ingredients,
+        price: editingFood.price,
+        image: editingFood.image,
+      }),
+    });
     if (response.ok) {
       await getFood();
     }

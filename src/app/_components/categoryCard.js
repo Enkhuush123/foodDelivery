@@ -9,11 +9,10 @@ const option = {
 
 export const CategoryCard = ({ name, categoryId }) => {
   const [foods, setFoods] = useState([]);
+
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
   const getData = async () => {
-    const data = await fetch(
-      `https://database-4-5ry8.onrender.com/${categoryId}`,
-      option
-    );
+    const data = await fetch(`${backend_url}/${categoryId}`, option);
     const jsonData = await data.json();
     setFoods(jsonData);
     console.log(jsonData, "catjsgd");

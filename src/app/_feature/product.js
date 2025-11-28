@@ -5,6 +5,8 @@ import { AllDishes } from "./allDishesCat";
 
 export const Product = () => {
   const [category, setCategory] = useState([]);
+
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
   const option = {
     method: "GET",
     headers: {
@@ -13,10 +15,7 @@ export const Product = () => {
   };
 
   const getData = async () => {
-    const data = await fetch(
-      "https://database-4-5ry8.onrender.com/category",
-      option
-    );
+    const data = await fetch(`${backend_url}/category`, option);
     const jsonData = await data.json();
     setCategory(jsonData);
     console.log(jsonData, "hool2");

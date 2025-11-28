@@ -29,19 +29,18 @@ export const FoodCards = (props) => {
   console.log(foods, "pzda");
   const [deliveryState, setDeliveryState] = useState(props.status || "");
 
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
+
   const handleChangeDelivery = async (newState) => {
     setDeliveryState(newState);
 
-    const response = await fetch(
-      `https://database-4-5ry8.onrender.com/foodOrder/${updateFoodId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: newState }),
-      }
-    );
+    const response = await fetch(`${backend_url}/foodOrder/${updateFoodId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: newState }),
+    });
     if (response.ok) {
       await getData();
     }

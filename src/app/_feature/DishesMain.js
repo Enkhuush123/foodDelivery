@@ -5,21 +5,17 @@ export const DishesMain = ({ selectedCategory }) => {
   const option = { method: "GET", headers: { accept: "application/json" } };
   const [category, setCategory] = useState([]);
   const [foods, setFoods] = useState([]);
+
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
   const getData = async () => {
-    const data = await fetch(
-      `https://database-4-5ry8.onrender.com/category`,
-      option
-    );
+    const data = await fetch(`${backend_url}/category`, option);
     const json = await data.json();
     setCategory(json);
     console.log(json, "cat");
   };
 
   const getFoods = async () => {
-    const res = await fetch(
-      `https://database-4-5ry8.onrender.com/foods`,
-      option
-    );
+    const res = await fetch(`${backend_url}/foods`, option);
     const data = await res.json();
     setFoods(data);
   };

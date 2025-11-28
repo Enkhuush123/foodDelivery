@@ -28,6 +28,8 @@ export const AddFoodDialog = ({ categoryId, name, getData }) => {
   const [alertMessage, setAlertMessage] = useState("");
   const [open, setOpen] = useState(false);
 
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
+
   const uploadToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
@@ -73,7 +75,7 @@ export const AddFoodDialog = ({ categoryId, name, getData }) => {
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA0ZGFhM2E5YjFmZDk2ODkxZTBhMyIsImVtYWlsIjoiZW5odXVzaGFxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NDA0Mjc0N30.aiyCnOKGZABBvz9bKJoNm4f9v-MZU_AHBXkxqH6wOrg";
   const addDish = async () => {
-    const res = await fetch(`https://database-4-5ry8.onrender.com`, {
+    const res = await fetch(`backend_url`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

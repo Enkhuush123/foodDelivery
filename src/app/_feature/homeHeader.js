@@ -34,6 +34,8 @@ export const HomeHeader = () => {
   const [auth, setAuth] = useState(false);
   const [addressBack, setAddressBack] = useState("");
 
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
+
   const router = useRouter();
 
   // const getData = async () => {
@@ -61,7 +63,7 @@ export const HomeHeader = () => {
     }
 
     try {
-      const res = await fetch(`https://database-4-5ry8.onrender.com/auth/`, {
+      const res = await fetch(`${backend_url}/auth/`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: user._id, address: addressInput }),

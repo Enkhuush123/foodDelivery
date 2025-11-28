@@ -12,11 +12,10 @@ const option = { method: "GET", headers: { accept: "application/json" } };
 export const CategoryContain = ({ selectedCategory, setSelectedCategory }) => {
   const [getCategory, setGetCategory] = useState([]);
 
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
+
   const getData = async () => {
-    const data = await fetch(
-      `https://database-4-5ry8.onrender.com/category`,
-      option
-    );
+    const data = await fetch(`${backend_url}/category`, option);
     const jsonData = await data.json();
     setGetCategory(jsonData);
     console.log(jsonData, "haha");

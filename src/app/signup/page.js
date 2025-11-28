@@ -7,6 +7,8 @@ import { useState } from "react";
 export default function SigninPage() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
+
+  const backend_url = process.env.PUBLIC_BACKEND_URL;
   const router = useRouter();
 
   const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -18,20 +20,17 @@ export default function SigninPage() {
     }
 
     try {
-      const res = await fetch(
-        `https://database-4-5ry8.onrender.com/auth/check-email`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email,
-            password: "",
-            phoneNumber: "",
-            address: "",
-            role: "USER",
-          }),
-        }
-      );
+      const res = await fetch(`${backend_url}/auth/check-email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password: "",
+          phoneNumber: "",
+          address: "",
+          role: "USER",
+        }),
+      });
 
       const data = await res.json();
       if (data.exists) {
