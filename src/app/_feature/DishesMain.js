@@ -6,14 +6,20 @@ export const DishesMain = ({ selectedCategory }) => {
   const [category, setCategory] = useState([]);
   const [foods, setFoods] = useState([]);
   const getData = async () => {
-    const data = await fetch(`http://localhost:9000/category`, option);
+    const data = await fetch(
+      `https://database-4-5ry8.onrender.com/category`,
+      option
+    );
     const json = await data.json();
     setCategory(json);
     console.log(json, "cat");
   };
 
   const getFoods = async () => {
-    const res = await fetch(`http://localhost:9000/foods`, option);
+    const res = await fetch(
+      `https://database-4-5ry8.onrender.com/foods`,
+      option
+    );
     const data = await res.json();
     setFoods(data);
   };

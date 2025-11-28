@@ -35,11 +35,14 @@ export default function Home() {
     }
     if (error) return;
     try {
-      const res = await fetch(`http://localhost:9000/auth/sign-in`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email, password: password }),
-      });
+      const res = await fetch(
+        `https://database-4-5ry8.onrender.com/auth/sign-in`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email, password: password }),
+        }
+      );
 
       if (res.status === 400) {
         setEmailError("Email not found.");

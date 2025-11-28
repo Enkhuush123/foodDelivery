@@ -11,7 +11,7 @@ export const CategoryCard = ({ name, categoryId }) => {
   const [foods, setFoods] = useState([]);
   const getData = async () => {
     const data = await fetch(
-      `http://localhost:9000/foods/${categoryId}`,
+      `https://database-4-5ry8.onrender.com/${categoryId}`,
       option
     );
     const jsonData = await data.json();

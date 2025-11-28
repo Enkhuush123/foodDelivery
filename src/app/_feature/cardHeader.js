@@ -48,7 +48,7 @@ export const CardHeader = () => {
   );
 
   const getData = async () => {
-    const data = await fetch("http://localhost:9000/foodOrder", {
+    const data = await fetch("https://database-4-5ry8.onrender.com/foodOrder", {
       method: "GET",
       headers: { accept: "application/json" },
     });
@@ -98,7 +98,7 @@ export const CardHeader = () => {
   };
   const changeStatus = async (newStatus) => {
     for (const orderId of selectedOrder) {
-      await fetch(`http://localhost:9000/foodOrder/${orderId}`, {
+      await fetch(`https://database-4-5ry8.onrender.com/foodOrder/${orderId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus }),

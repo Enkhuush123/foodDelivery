@@ -33,7 +33,7 @@ export const FoodCards = (props) => {
     setDeliveryState(newState);
 
     const response = await fetch(
-      `http://localhost:9000/foodOrder/${updateFoodId}`,
+      `https://database-4-5ry8.onrender.com/foodOrder/${updateFoodId}`,
       {
         method: "PUT",
         headers: {

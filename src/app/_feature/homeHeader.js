@@ -61,7 +61,7 @@ export const HomeHeader = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:9000/auth/`, {
+      const res = await fetch(`https://database-4-5ry8.onrender.com/auth/`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: user._id, address: addressInput }),

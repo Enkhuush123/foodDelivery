@@ -13,7 +13,10 @@ export const Product = () => {
   };
 
   const getData = async () => {
-    const data = await fetch("http://localhost:9000/category", option);
+    const data = await fetch(
+      "https://database-4-5ry8.onrender.com/category",
+      option
+    );
     const jsonData = await data.json();
     setCategory(jsonData);
     console.log(jsonData, "hool2");

@@ -18,17 +18,20 @@ export default function SigninPage() {
     }
 
     try {
-      const res = await fetch(`http://localhost:9000/auth/check-email`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password: "",
-          phoneNumber: "",
-          address: "",
-          role: "USER",
-        }),
-      });
+      const res = await fetch(
+        `https://database-4-5ry8.onrender.com/auth/check-email`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            password: "",
+            phoneNumber: "",
+            address: "",
+            role: "USER",
+          }),
+        }
+      );
 
       const data = await res.json();
       if (data.exists) {

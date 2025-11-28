@@ -32,13 +32,19 @@ export const Category = () => {
     },
   };
   const getfoods = async () => {
-    const data = await fetch(`http://localhost:9000/foods`, options);
+    const data = await fetch(
+      `https://database-4-5ry8.onrender.com/foods`,
+      options
+    );
     const jsonData = await data.json();
     setFoods(jsonData);
     console.log(jsonData, "ehehe");
   };
   const getData = async () => {
-    const data = await fetch("http://localhost:9000/category", options);
+    const data = await fetch(
+      "https://database-4-5ry8.onrender.com/category",
+      options
+    );
     const jsonData = await data.json();
     setCategory(jsonData);
     console.log(jsonData, "herehhhaa");
@@ -47,13 +53,16 @@ export const Category = () => {
   const handleAddCategory = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:9000/category", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ categoryName: addCategory }),
-    });
+    const response = await fetch(
+      "https://database-4-5ry8.onrender.com/category",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ categoryName: addCategory }),
+      }
+    );
 
     if (response.ok) {
       setAddCategory("");

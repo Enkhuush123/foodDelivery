@@ -60,39 +60,48 @@ export const FoodContain = (props) => {
     image: img || logoUrl,
   });
   const getData = async () => {
-    const data = await fetch(`http://localhost:9000/category`, option);
+    const data = await fetch(
+      `https://database-4-5ry8.onrender.com/category`,
+      option
+    );
     const json = await data.json();
     setCategory(json);
     console.log(json, "data");
   };
 
   const handleEdit = async () => {
-    const response = await fetch(`http://localhost:9000/foods/${foodId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA0ZGFhM2E5YjFmZDk2ODkxZTBhMyIsImVtYWlsIjoiZW5odXVzaGFxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MzAwNDUwMH0.a9cA_NQ6yT8Yg32h6qjVOMtVxqX0spaYy5484ubW4xU`,
-      },
-      body: JSON.stringify({
-        foodName: editingFood.foodName,
-        category: editingFood.category,
-        ingredients: editingFood.ingredients,
-        price: editingFood.price,
-        image: editingFood.image,
-      }),
-    });
+    const response = await fetch(
+      `https://database-4-5ry8.onrender.com/foods/${foodId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA0ZGFhM2E5YjFmZDk2ODkxZTBhMyIsImVtYWlsIjoiZW5odXVzaGFxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2MzAwNDUwMH0.a9cA_NQ6yT8Yg32h6qjVOMtVxqX0spaYy5484ubW4xU`,
+        },
+        body: JSON.stringify({
+          foodName: editingFood.foodName,
+          category: editingFood.category,
+          ingredients: editingFood.ingredients,
+          price: editingFood.price,
+          image: editingFood.image,
+        }),
+      }
+    );
     if (response.ok) {
       await getFood();
     }
   };
 
   const handleDelete = async () => {
-    const response = await fetch(`http://localhost:9000/foods/${foodId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA0ZGFhM2E5YjFmZDk2ODkxZTBhMyIsImVtYWlsIjoiZW5odXVzaGFxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NDA0Mjc0N30.aiyCnOKGZABBvz9bKJoNm4f9v-MZU_AHBXkxqH6wOrg`,
-      },
-    });
+    const response = await fetch(
+      `https://database-4-5ry8.onrender.com/foods/${foodId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA0ZGFhM2E5YjFmZDk2ODkxZTBhMyIsImVtYWlsIjoiZW5odXVzaGFxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NDA0Mjc0N30.aiyCnOKGZABBvz9bKJoNm4f9v-MZU_AHBXkxqH6wOrg`,
+        },
+      }
+    );
     if (response.ok) {
       setFoods((prev) => prev.filter((f) => f._id !== foodId));
     }

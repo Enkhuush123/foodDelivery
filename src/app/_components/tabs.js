@@ -46,19 +46,22 @@ export const Tab = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:9000/foodOrder/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          user: user._id,
-          totalPrice: TotalPrice + shipping,
-          address: address,
-          foodOrderItems: cartItems.map((item) => ({
-            food: item.foodId,
-            quantity: item.quantity,
-          })),
-        }),
-      });
+      const res = await fetch(
+        `https://database-4-5ry8.onrender.com/foodOrder/`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user: user._id,
+            totalPrice: TotalPrice + shipping,
+            address: address,
+            foodOrderItems: cartItems.map((item) => ({
+              food: item.foodId,
+              quantity: item.quantity,
+            })),
+          }),
+        }
+      );
 
       if (!res.ok) {
         throw new Error("failed to create order");
@@ -72,10 +75,13 @@ export const Tab = () => {
     }
   };
   const getData = async () => {
-    const data = await fetch(`http://localhost:9000/foodOrder/${user._id}`, {
-      method: "GET",
-      headers: { accept: "application/json" },
-    });
+    const data = await fetch(
+      `https://database-4-5ry8.onrender.com/foodOrder/${user._id}`,
+      {
+        method: "GET",
+        headers: { accept: "application/json" },
+      }
+    );
     const json = await data.json();
     setFoodOrders(json);
     console.log(json, "gg");

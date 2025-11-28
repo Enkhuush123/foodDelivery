@@ -73,7 +73,7 @@ export const AddFoodDialog = ({ categoryId, name, getData }) => {
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA0ZGFhM2E5YjFmZDk2ODkxZTBhMyIsImVtYWlsIjoiZW5odXVzaGFxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NDA0Mjc0N30.aiyCnOKGZABBvz9bKJoNm4f9v-MZU_AHBXkxqH6wOrg";
   const addDish = async () => {
-    const res = await fetch(`http://localhost:9000/foods`, {
+    const res = await fetch(`https://database-4-5ry8.onrender.com`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
