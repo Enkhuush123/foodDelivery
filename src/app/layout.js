@@ -3,6 +3,7 @@ import "./globals.css";
 import { CartProvider } from "@/context/cartContext";
 import { AddressProvider } from "@/context/addressContext";
 import { UserProvider } from "@/context/userContext";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,10 @@ export default function RootLayout({ children }) {
       >
         <UserProvider>
           <AddressProvider>
-            <CartProvider> {children}</CartProvider>
+            <CartProvider>
+              {" "}
+              <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+            </CartProvider>
           </AddressProvider>
         </UserProvider>
       </body>
