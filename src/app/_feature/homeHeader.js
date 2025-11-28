@@ -179,7 +179,7 @@ export const HomeHeader = () => {
               </button>
               <button
                 onClick={() => router.push("/signup")}
-                className="w-20 h-9 p-1 bg-neutral-200 rounded-full flex justify-center items-center"
+                className="w-20 h-9 p-1 bg-neutral-200 rounded-full flex justify-center items-center cursor-pointer"
               >
                 <p className="text-red-500"> Sign up</p>
               </button>

@@ -10,7 +10,7 @@ export const CategoryDishes = ({ name, categoryId }) => {
 
   const getData = async () => {
     const data = await fetch(
-      `https://database-4-5ry8.onrender.com/${categoryId}`,
+      `https://database-4-5ry8.onrender.com/foods/${categoryId}`,
       option
     );
     const jsonData = await data.json();
