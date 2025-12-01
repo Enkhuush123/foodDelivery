@@ -34,7 +34,7 @@ export const HomeHeader = () => {
   const [auth, setAuth] = useState(false);
   const [addressBack, setAddressBack] = useState("");
 
-  const backend_url = process.env.PUBLIC_BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const router = useRouter();
 

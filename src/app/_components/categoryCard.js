@@ -10,7 +10,7 @@ const option = {
 export const CategoryCard = ({ name, categoryId }) => {
   const [foods, setFoods] = useState([]);
 
-  const backend_url = process.env.PUBLIC_BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
   const getData = async () => {
     const data = await fetch(`${backend_url}/foods/${categoryId}`, option);
     const jsonData = await data.json();

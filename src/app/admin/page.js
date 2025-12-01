@@ -4,7 +4,7 @@ import { Navigation } from "../_feature/navigation";
 
 export default function adminPage() {
   return (
-    <div className="flex flex-row bg-neutral-100 gap-5 w-full max-sm:w-full   ">
+    <div className="flex flex-row bg-neutral-100 w-full max-sm:w-full max-sm:flex-col   ">
       <Navigation />
 
       <CardHeader />

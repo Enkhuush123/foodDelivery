@@ -7,7 +7,7 @@ import { AddFoodDialog } from "../_components/addFoodDialog";
 export const AllDishes = ({ name, categoryId }) => {
   const [foods, setFoods] = useState([]);
 
-  const backend_url = process.env.PUBLIC_BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const option = {
     method: "GET",

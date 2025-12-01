@@ -28,7 +28,7 @@ export const AddFoodDialog = ({ categoryId, name, getData }) => {
   const [alertMessage, setAlertMessage] = useState("");
   const [open, setOpen] = useState(false);
 
-  const backend_url = process.env.PUBLIC_BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const uploadToCloudinary = async (file) => {
     const formData = new FormData();

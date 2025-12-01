@@ -8,7 +8,7 @@ export default function SigninPage() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
 
-  const backend_url = process.env.PUBLIC_BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
   const router = useRouter();
 
   const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);

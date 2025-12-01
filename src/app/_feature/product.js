@@ -6,7 +6,7 @@ import { AllDishes } from "./allDishesCat";
 export const Product = () => {
   const [category, setCategory] = useState([]);
 
-  const backend_url = process.env.PUBLIC_BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
   const option = {
     method: "GET",
     headers: {

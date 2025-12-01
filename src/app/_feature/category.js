@@ -25,7 +25,7 @@ export const Category = () => {
   const { user, logout } = useUser();
   const [profile, setProfile] = useState(false);
 
-  const backend_url = process.env.PUBLIC_BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const options = {
     method: "GET",
@@ -73,8 +73,8 @@ export const Category = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-[1200px]  shadow-sm flex flex-col p-5 gap-2 rounded-lg border-none ">
-      <div className="flex flex-col gap-5 ">
+    <div className="w-full  max-sm:w-full  flex flex-col p-5 gap-2 rounded-lg border-none ">
+      <div className="flex flex-col gap-5 w-full max-sm:w-full ">
         {showAlert && (
           <div className="fixed w-full inset-0 flex justify-center  p-5">
             <div className="w-[368px] h-10 bg-black rounded-lg flex items-center justify-center">
@@ -84,10 +84,10 @@ export const Category = () => {
             </div>
           </div>
         )}
-        <div>
+        <div className="w-full max-sm:w-full">
           <button
             onClick={() => setProfile(!profile)}
-            className="w-full flex pt-6   justify-end"
+            className="w-full max-sm:w-full flex pt-6   justify-end"
           >
             <img
               src="/enhush.jpg"
@@ -108,11 +108,11 @@ export const Category = () => {
           )}
         </div>
 
-        <div className="w-full max-w-[1200px] shadow-sm flex flex-col p-5 gap-2 rounded-lg bg-white ">
+        <div className="w-full max-sm:w-full h-auto shadow-sm flex flex-col p-5 gap-2 rounded-lg bg-white ">
           <div>
             <h1 className="font-semibold text-xl">Dishes category</h1>
           </div>
-          <div className="flex gap-3 ">
+          <div className="flex gap-3 flex-wrap w-full max-sm:w-full ">
             {foods && (
               <button className="w-auto h-9 border rounded-full flex items-center gap-5 p-5">
                 <p>All Dishes</p>

@@ -6,7 +6,7 @@ export const DishesMain = ({ selectedCategory }) => {
   const [category, setCategory] = useState([]);
   const [foods, setFoods] = useState([]);
 
-  const backend_url = process.env.PUBLIC_BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
   const getData = async () => {
     const data = await fetch(`${backend_url}/category`, option);
     const json = await data.json();
@@ -30,7 +30,7 @@ export const DishesMain = ({ selectedCategory }) => {
       ? foods
       : foods.filter((food) => food.categoryId === selectedCategory);
   return (
-    <div className="flex flex-col gap-20 w-[1700px] max-sm:w-full m-auto ">
+    <div className="flex flex-col gap-20 max-w-[1500px] max-sm:p-5 m-auto max-sm:w-full  ">
       {(selectedCategory === "ALL"
         ? category
         : category.filter((cat) => cat._id === selectedCategory)

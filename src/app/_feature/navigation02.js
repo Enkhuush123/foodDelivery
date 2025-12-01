@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export const Navigation02 = () => {
   const router = useRouter();
   return (
-    <div className="w-[205px]  max-h-[1200px]  shadow-sm flex flex-col gap-10 bg-white  ">
+    <div className="w-[205px] max-sm:w-full max-sm:h-auto max-sm:flex max-sm:flex-row items-center  max-h-[1200px]  shadow-sm flex flex-col gap-10 bg-white  ">
       <div
         className="flex p-5  gap-2  cursor-pointer "
         onClick={() => router.push("/")}
@@ -20,7 +20,7 @@ export const Navigation02 = () => {
           <p className="font-normal text-xs ">Swift delivery</p>
         </div>
       </div>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 max-sm:flex-row">
         <div className="flex justify-center ">
           <button className="bg-black w-[165px] h-10 rounded-full flex  items-center gap-2 p-5">
             <Vector02 />{" "}

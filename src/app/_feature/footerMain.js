@@ -11,7 +11,7 @@ const option = {
 export const Footer = () => {
   const [category, setCategory] = useState([]);
 
-  const backend_url = process.env.PUBLIC_BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const getData = async () => {
     const data = await fetch(`${backend_url}/category`, option);
@@ -23,8 +23,8 @@ export const Footer = () => {
     getData();
   }, []);
   return (
-    <div className="w-full max-sm:w-full h-[755px] bg-black flex flex-col  items-center gap-50  ">
-      <div className="w-full bg-red-500 h-[92px] overflow-x-auto flex items-center mt-10 ">
+    <div className="w-full max-sm:w-full  bg-black flex flex-col  items-center gap-50 ">
+      <div className="w-full bg-red-500 h-[92px] overflow-x-auto max-sm:w-full flex items-center  ">
         <div className="w-full bg-red-500 overflow-hidden">
           <div className="flex gap-8 whitespace-nowrap font-semibold text-xl text-white animate-scroll">
             {Array(25)
@@ -35,7 +35,7 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="flex w-[1264px]  justify-center  gap-50">
+      <div className="flex w-full max-sm:w-full items-center p-5  justify-center  gap-5 max-sm:flex">
         <div className="flex flex-col items-center">
           <div>
             <WebLogo />
@@ -51,7 +51,7 @@ export const Footer = () => {
             <p className="text-white">Swift delivery</p>
           </div>
         </div>
-        <div className="flex gap-28 w-[788px] h-[228px] justify-evenly">
+        <div className="flex gap-28 w-full  h-[228px] max-sm:w-full max-sm:gap-5 justify-evenly  ">
           <div className="flex flex-col gap-4 ">
             <p className="text-neutral-500">NOMNOM</p>
             <p className="text-white">Home</p>
@@ -74,6 +74,12 @@ export const Footer = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="w-full border-t text-neutral-400 p-5 flex gap-30 items-center">
+        <p>Copy right 2024 © Nomnom LLC</p>
+        <p>Privacy policy </p>
+        <p>Terms and conditoin</p>
+        <p>Cookie policy</p>
       </div>
     </div>
   );

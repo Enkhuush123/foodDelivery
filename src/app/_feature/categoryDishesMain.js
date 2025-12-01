@@ -4,7 +4,7 @@ import { FoodCardMain } from "../_components/foodCardMain";
 export const CategoryDishes = ({ name, categoryId }) => {
   const [foods, setFoods] = useState([]);
 
-  const backend_url = process.env.PUBLIC_BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
   const option = {
     method: "GET",
     headers: { accept: "application/json" },
@@ -21,11 +21,11 @@ export const CategoryDishes = ({ name, categoryId }) => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-5 ">
+    <div className="flex flex-col gap-5  ">
       <div>
         <p className="text-white font-semibold text-3xl">{name}</p>
       </div>
-      <div className="flex gap-5">
+      <div className="flex gap-5 flex-wrap max-sm:justify-center ">
         {foods.map((food) => (
           <FoodCardMain
             key={food._id}

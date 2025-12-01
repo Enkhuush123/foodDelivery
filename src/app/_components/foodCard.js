@@ -29,7 +29,7 @@ export const FoodCards = (props) => {
   console.log(foods);
   const [deliveryState, setDeliveryState] = useState(props.status || "");
 
-  const backend_url = process.env.PUBLIC_BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const handleChangeDelivery = async (newState) => {
     setDeliveryState(newState);

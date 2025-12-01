@@ -27,7 +27,7 @@ export const Tab = () => {
   const [orders, setOrders] = useState([]);
   const [foodOrders, setFoodOrders] = useState([]);
 
-  const backend_url = process.env.PUBLIC_BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const { user } = useUser();
   console.log(cartItems, "cart");

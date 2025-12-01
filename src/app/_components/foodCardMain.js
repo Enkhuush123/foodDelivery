@@ -49,10 +49,10 @@ export const FoodCardMain = ({ ingredients, name, price, img, _id }) => {
     });
   };
   return (
-    <div className="w-[397px] h-[342px] bg-white p-5 rounded-lg flex flex-col gap-5  items-center ">
+    <div className="w-[397px] h-[342px] bg-white p-5 rounded-lg flex flex-col gap-5  items-center   ">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <div className="w-[365px] h-[210px] justify-center relative flex  ">
+          <div className="w-[365px] h-[210px] justify-center relative flex   ">
             <Image
               className="w-[365px] h-[210px] object-cover rounded-lg absolute  "
               height={"100"}
@@ -80,7 +80,7 @@ export const FoodCardMain = ({ ingredients, name, price, img, _id }) => {
           <DialogHeader>
             <DialogTitle></DialogTitle>
           </DialogHeader>
-          <div className=" flex w-[826px]  p-5 justify-between ">
+          <div className=" flex w-[826px]  p-5 justify-between  ">
             <div className="w-[377px] h-[364px] relative">
               <Image
                 className="w-full h-[364px] object-cover rounded-lg "
@@ -90,7 +90,7 @@ export const FoodCardMain = ({ ingredients, name, price, img, _id }) => {
                 alt={"food image"}
               />
             </div>
-            <div className="flex flex-col gap-5 w-[377px] justify-between  ">
+            <div className="flex flex-col gap-5 w-[377px] justify-between   ">
               <div className="flex flex-col gap-3">
                 <p className="font-semibold text-red-500 text-3xl">{name}</p>
                 <p>{ingredients}</p>
@@ -136,7 +136,7 @@ export const FoodCardMain = ({ ingredients, name, price, img, _id }) => {
         </DialogContent>
       </Dialog>
 
-      <div className="flex gap-2 flex-col">
+      <div className="flex gap-2 flex-col w-[365.7px]">
         <div className="flex  justify-between">
           <p className="text-red-500">{name}</p>
           <p className="font-semibold text-lg">{price}₮</p>

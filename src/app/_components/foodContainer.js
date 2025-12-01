@@ -52,7 +52,7 @@ export const FoodContain = (props) => {
   const [uploading, setUploading] = useState(false);
   const [logoUrl, setLogoUrl] = useState("");
 
-  const backend_url = process.env.PUBLIC_BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const [editingFood, setEditingFood] = useState({
     foodName: name || "",

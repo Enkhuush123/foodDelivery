@@ -6,7 +6,7 @@ import { Product } from "@/app/_feature/product";
 
 export default function foodMenu() {
   return (
-    <div className="flex flex-row shadow-sm bg-neutral-100 gap-10 ">
+    <div className="flex flex-row max-sm:flex-col shadow-sm bg-neutral-100  w-full max-sm:w-full ">
       <Navigation02 />
 
       <Category />
