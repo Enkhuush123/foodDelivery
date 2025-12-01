@@ -16,7 +16,7 @@ export const AllDishes = ({ name, categoryId }) => {
     },
   };
   const getData = async () => {
-    const data = await fetch(`${backend_url}/${categoryId}`, option);
+    const data = await fetch(`${backend_url}/foods/${categoryId}`, option);
     const jsonData = await data.json();
     setFoods(jsonData);
     console.log(jsonData, "haha");
