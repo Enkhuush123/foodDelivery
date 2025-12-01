@@ -12,7 +12,7 @@ export const CategoryCard = ({ name, categoryId }) => {
 
   const backend_url = process.env.PUBLIC_BACKEND_URL;
   const getData = async () => {
-    const data = await fetch(`${backend_url}/${categoryId}`, option);
+    const data = await fetch(`${backend_url}/foods/${categoryId}`, option);
     const jsonData = await data.json();
     setFoods(jsonData);
     console.log(jsonData, "catjsgd");

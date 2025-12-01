@@ -26,7 +26,7 @@ export const FoodCards = (props) => {
     toggleSelect,
     getData,
   } = props;
-  console.log(foods, "pzda");
+  console.log(foods);
   const [deliveryState, setDeliveryState] = useState(props.status || "");
 
   const backend_url = process.env.PUBLIC_BACKEND_URL;
