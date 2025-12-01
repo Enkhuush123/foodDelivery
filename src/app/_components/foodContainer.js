@@ -303,13 +303,15 @@ export const FoodContain = (props) => {
             </Dialog>
           </div>
         </div>
-        <div className="flex gap-3 flex-col w-auto">
+        <div className="flex gap-3 flex-col w-[238.7px]">
           <div className="flex justify-between items-center">
             <p className="font-normal text-sm text-red-600  ">{name}</p>
             <p>{price}₮</p>
           </div>
           <div>
-            <p className="font-normal text-xs  ">{ingredients}</p>
+            <p className="font-normal text-xs h-8 overflow-auto ">
+              {ingredients}
+            </p>
           </div>
         </div>
       </div>
