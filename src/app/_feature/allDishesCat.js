@@ -27,7 +27,7 @@ export const AllDishes = ({ name, categoryId }) => {
   }, []);
 
   return (
-    <div className="shadow-sm rounded-lg flex flex-col bg-white w-[1950px]">
+    <div className="shadow-sm rounded-lg flex flex-col bg-white w-full max-sm:w-full">
       <div className="p-5">
         <p className="font-semibold text-xl">
           {name} {foods.length}

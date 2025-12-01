@@ -131,7 +131,7 @@ export const CardHeader = () => {
     pageNumbers.push(i);
   }
   return (
-    <div className="w-full max-sm:w-full  p-5  gap-5 flex flex-col rounded-md">
+    <div className="w-full max-sm:w-full h-dvh  p-5  gap-5 flex flex-col rounded-md">
       <div className="w-full max-sm:w-full flex   flex-col gap-2 ">
         <button
           onClick={() => setProfile(!profile)}

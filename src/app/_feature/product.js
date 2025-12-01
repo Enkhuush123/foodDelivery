@@ -25,7 +25,7 @@ export const Product = () => {
     getData();
   }, []);
   return (
-    <div className="w-[1950px] h-32 rounded-lg flex flex-col gap-10   ">
+    <div className="w-full max-sm:w-full h-32 rounded-lg flex flex-col gap-10   ">
       {category.map((category) => (
         <AllDishes
           key={category._id}

@@ -149,7 +149,7 @@ export const FoodContain = (props) => {
   }, []);
 
   return (
-    <div className="flex flex-wrap ">
+    <div className="flex flex-wrap max-sm:overflow-auto ">
       <div className="w-[270.75px] h-[241px] rounded-lg shadow-sm  flex flex-col justify-center items-center p-5  gap-2 ">
         <div className="w-[238.75px] h-[129px] flex justify-center relative items-center ">
           <Image
