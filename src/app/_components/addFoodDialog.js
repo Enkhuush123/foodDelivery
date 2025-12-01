@@ -75,7 +75,7 @@ export const AddFoodDialog = ({ categoryId, name, getData }) => {
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDA0ZGFhM2E5YjFmZDk2ODkxZTBhMyIsImVtYWlsIjoiZW5odXVzaGFxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NDU1NTUxMX0.qXHNn3JZP9peKeeljR85KD4LZhj2o7B9fjBTidfGvJQ";
   const addDish = async () => {
-    const res = await fetch(`${backend_url}/`, {
+    const res = await fetch(`${backend_url}/foods`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
