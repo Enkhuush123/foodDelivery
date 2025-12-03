@@ -36,22 +36,22 @@ export const Footer = () => {
         </div>
       </div>
       <div className="flex w-full max-sm:w-full items-center p-5  justify-center  gap-5 max-sm:flex">
-        <div className="flex flex-col items-center">
-          <div>
-            <WebLogo />
+        <div className="flex gap-28 w-full  h-[228px] max-sm:w-full max-sm:gap-5 justify-evenly items-center  ">
+          <div className="flex flex-col items-center ">
+            <div>
+              <WebLogo />
+            </div>
+            <div>
+              {" "}
+              <p className="text-white">
+                Nom<span className="text-red-500">Nom</span>
+              </p>
+            </div>
+            <div>
+              {" "}
+              <p className="text-white">Swift delivery</p>
+            </div>
           </div>
-          <div>
-            {" "}
-            <p className="text-white">
-              Nom<span className="text-red-500">Nom</span>
-            </p>
-          </div>
-          <div>
-            {" "}
-            <p className="text-white">Swift delivery</p>
-          </div>
-        </div>
-        <div className="flex gap-28 w-full  h-[228px] max-sm:w-full max-sm:gap-5 justify-evenly  ">
           <div className="flex flex-col gap-4 ">
             <p className="text-neutral-500">NOMNOM</p>
             <p className="text-white">Home</p>
