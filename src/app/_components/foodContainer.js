@@ -156,7 +156,7 @@ export const FoodContain = (props) => {
             className="w-[238.75px] h-[129px] absolute z-50 object-cover flex   rounded-lg"
             height={"100"}
             width={"100"}
-            src={img || "/food.png"}
+            src={editingFood.image || "/food.png"}
             alt={editingFood.image || "food image"}
           />
 
