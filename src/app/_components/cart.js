@@ -13,19 +13,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ShopIcon } from "../_icons/shopIcon";
-import { Tab, Tabs } from "./tabs";
+
+import { Tab } from "./tabs";
 import { ShopIconWhite } from "../_icons/shopIconWhite";
-import { useCart } from "@/context/cartContext";
-import { useEffect, useState } from "react";
-import { useUser } from "@/context/userContext";
+
+import { CiShoppingCart } from "react-icons/ci";
 
 export const Cart = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
         <Button className="bg-white flex items-center w-9 h-9 justify-center rounded-full cursor-pointer ">
-          <ShopIcon />
+          <CiShoppingCart />
         </Button>
       </SheetTrigger>
       <SheetContent className={`bg-neutral-700 p-3`}>
